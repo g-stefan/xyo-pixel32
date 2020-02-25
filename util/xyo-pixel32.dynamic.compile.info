@@ -1,0 +1,5 @@
+--dll xyo-pixel32
+--source-is-separate
+--no-version
+--use-project=xyo
+--use-lib=libpng

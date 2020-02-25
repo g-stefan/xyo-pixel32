@@ -1,0 +1,14 @@
+//
+// XYO Pixel32
+//
+// Copyright (c) 2020 Grigore Stefan <g_stefan@yahoo.com>
+// Created by Grigore Stefan <g_stefan@yahoo.com>
+//
+// MIT License (MIT) <http://opensource.org/licenses/MIT>
+//
+
+#include "xyo-application-version--os-windows-rc.hpp"
+#include "xyo-pixel32-version.hpp"
+#include "xyo-pixel32-copyright.hpp"
+
+XYO_APPLICATION_VERSION_INFO(XYO_PIXEL32,"xyo-pixel32.dll","XYO Pixel32")

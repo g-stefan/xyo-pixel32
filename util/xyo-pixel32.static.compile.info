@@ -1,0 +1,5 @@
+--lib xyo-pixel32
+--source-is-separate
+--use-project=xyo.static
+--use-lib=libpng.static
+--use-lib=libz.static
