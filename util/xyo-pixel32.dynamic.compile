@@ -3,3 +3,4 @@
 --no-version
 --use-project=xyo
 --use-lib=libpng
+--use-lib=libz

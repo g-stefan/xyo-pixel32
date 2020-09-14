@@ -19,5 +19,5 @@ cmdX(){
 
 cmdX file-to-cs --touch=source/xyo-pixel32-license.cpp --file-in=source/license-dependency-libpng.txt --file-out=source/license-dependency-libpng.src --is-string-direct
 cmdX file-to-cs --touch=source/xyo-pixel32-license.cpp --file-in=source/license-dependency-zlib.txt --file-out=source/license-dependency-zlib.src --is-string-direct
-cmdX xyo-cc --mode=$ACTION @util/xyo-pixel32.static.compile.unix.info
-cmdX xyo-cc --mode=$ACTION @util/xyo-pixel32.dynamic.compile.info
+cmdX xyo-cc --mode=$ACTION @util/xyo-pixel32.static.compile.unix
+cmdX xyo-cc --mode=$ACTION @util/xyo-pixel32.dynamic.compile
