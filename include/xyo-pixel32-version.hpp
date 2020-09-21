@@ -10,10 +10,10 @@
 #ifndef XYO_PIXEL32_VERSION_HPP
 #define XYO_PIXEL32_VERSION_HPP
 
-#define XYO_PIXEL32_VERSION_ABCD               1,1,0,3
-#define XYO_PIXEL32_VERSION_STR                 "1.1.0"
-#define XYO_PIXEL32_VERSION_STR_BUILD           "3"
-#define XYO_PIXEL32_VERSION_STR_DATETIME        "2020-09-15 00:19:15"
+#define XYO_PIXEL32_VERSION_ABCD               1,2,0,4
+#define XYO_PIXEL32_VERSION_STR                 "1.2.0"
+#define XYO_PIXEL32_VERSION_STR_BUILD           "4"
+#define XYO_PIXEL32_VERSION_STR_DATETIME        "2020-09-21 17:40:05"
 
 #ifndef XYO_RC
 

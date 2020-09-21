@@ -23,6 +23,10 @@ call :cmdX cmd.exe /C "port\build.msvc32.cmd clean"
 call :cmdX cmd.exe /C "port\build.msvc32.cmd local-release"
 call :cmdX cmd.exe /C "port\build.msvc32.cmd clean"
 
+call :cmdX cmd.exe /C "port\build.mingw32.cmd clean"
+call :cmdX cmd.exe /C "port\build.mingw32.cmd local-release"
+call :cmdX cmd.exe /C "port\build.mingw32.cmd clean"
+
 call :cmdX cmd.exe /C "port\build.mingw64.cmd clean"
 call :cmdX cmd.exe /C "port\build.mingw64.cmd local-release"
 call :cmdX cmd.exe /C "port\build.mingw64.cmd clean"
