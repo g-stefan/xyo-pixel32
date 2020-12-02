@@ -54,9 +54,11 @@ namespace XYO {
 			bmp_x.ih.biClrImportant = 0;
 
 			calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-			bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
-			memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
-			retV->image = bmp_new;
+			if(bmp_x.fh.bfSize >= sizeof(BmpImage)) {
+				bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
+				memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
+				retV->image = bmp_new;
+			};
 
 			return retV;
 		};
@@ -92,9 +94,11 @@ namespace XYO {
 			bmp_x.ih.biClrImportant = 0;
 
 			calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-			bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
-			memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
-			retV->image = bmp_new;
+			if(bmp_x.fh.bfSize >= sizeof(BmpImage)) {
+				bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
+				memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
+				retV->image = bmp_new;
+			};
 
 			return retV;
 		};
@@ -131,11 +135,12 @@ namespace XYO {
 			bmp_x.ih.biClrImportant = 0;
 
 			calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-			bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
-			memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
-			memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 256);
-			retV->image = bmp_new;
-
+			if(bmp_x.fh.bfSize >= (sizeof(BmpImage)+(sizeof(BmpRgbQuad) * 256))){
+				bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
+				memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
+				memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 256);
+				retV->image = bmp_new;
+			};
 
 			return retV;
 
@@ -172,10 +177,12 @@ namespace XYO {
 			bmp_x.ih.biClrImportant = 0;
 
 			calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-			bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
-			memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
-			memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 16);
-			retV->image = bmp_new;
+			if(bmp_x.fh.bfSize >= (sizeof(BmpImage) + (sizeof(BmpRgbQuad) * 16))) {
+				bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
+				memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
+				memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 16);
+				retV->image = bmp_new;
+			};
 
 			return retV;
 
@@ -213,10 +220,12 @@ namespace XYO {
 			bmp_x.ih.biClrImportant = 0;
 
 			calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-			bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
-			memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
-			memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 2);
-			retV->image = bmp_new;
+			if(bmp_x.fh.bfSize >= (sizeof(BmpImage) + (sizeof(BmpRgbQuad) * 2))) {
+				bmp_new = (BmpImage *)(new uint8_t[bmp_x.fh.bfSize]);
+				memcpy(bmp_new, &bmp_x, sizeof(BmpImage));
+				memset(bmp_new + 1, 0, sizeof(BmpRgbQuad) * 2);
+				retV->image = bmp_new;
+			};
 
 			return retV;
 
@@ -244,13 +253,15 @@ namespace XYO {
 					if((bmp_x.fh.bfSize == 0) || (bmp_x.ih.biSizeImage == 0)) {
 						calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
 					};
-					p_bmp = (BmpImage *)new uint8_t[bmp_x.fh.bfSize];
-					b_sz = in.read(&p_bmp[1], bmp_x.fh.bfSize - sizeof(BmpImage));
-					if(b_sz == (bmp_x.fh.bfSize - sizeof(BmpImage))) {
-						memcpy(p_bmp, &bmp_x, sizeof(BmpImage));
-					} else {
-						delete[] ((uint8_t *)p_bmp);
-						p_bmp = NULL;
+					if(bmp_x.fh.bfSize >= sizeof(BmpImage)) {
+						p_bmp = (BmpImage *)new uint8_t[bmp_x.fh.bfSize];
+						b_sz = in.read(&p_bmp[1], bmp_x.fh.bfSize - sizeof(BmpImage));
+						if(b_sz == (bmp_x.fh.bfSize - sizeof(BmpImage))) {
+							memcpy(p_bmp, &bmp_x, sizeof(BmpImage));
+						} else {
+							delete[] ((uint8_t *)p_bmp);
+							p_bmp = NULL;
+						};
 					};
 				};
 

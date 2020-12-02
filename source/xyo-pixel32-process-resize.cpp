@@ -20,8 +20,7 @@ namespace XYO {
 				uint32_t dx = imgThis->width;
 				uint32_t dy = imgThis->height;
 				if(nx == dx) {
-					if(ny == dy) {
-						TPointer<Image> retV;
+					if(ny == dy) {						
 						retV = create(nx, ny);
 						memcpy(retV->pixelMap, imgThis->pixelMap, sizeof(Pixel)*nx * ny);
 						return retV;

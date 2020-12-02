@@ -222,7 +222,7 @@ namespace XYO {
 											};
 										};
 
-										delete rowPointers;
+										delete[] rowPointers;
 
 										bmp->swapRBInvertA32();
 									};
@@ -281,9 +281,10 @@ namespace XYO {
 
 							bmp->swapRBInvertA32();
 
-							rowPointers = new png_bytep[bmp->getHeight()];
+							int yLn=bmp->getHeight();
+							rowPointers = new png_bytep[yLn];
 							scanLine = bmp->getScanLine();
-							for(y = 0; y < bmp->getHeight(); ++y) {
+							for(y = 0; y < yLn; ++y) {
 								rowPointers[y] = (png_bytep)bmp->getRow32Bits(y, scanLine);
 							};
 
@@ -292,7 +293,7 @@ namespace XYO {
 
 							bmp->swapRBInvertA32();
 
-							delete rowPointers;
+							delete[] rowPointers;
 							retV = true;
 							png_destroy_write_struct(&png, &info);
 						} else {
