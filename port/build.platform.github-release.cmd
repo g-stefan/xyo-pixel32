@@ -5,7 +5,7 @@ rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-echo -^> git-release xyo-pixel32
+echo -^> github-release xyo-pixel32
 
 if not exist release\ echo Error - no release & exit 1
 
