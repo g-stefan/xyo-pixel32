@@ -1,0 +1,7 @@
+--lib xyo-pixel32
+--build-include
+--use-project=xyo.static
+--use-lib=libpng
+--use-lib=libz
+--version-file=version.ini
+--use-path=source
