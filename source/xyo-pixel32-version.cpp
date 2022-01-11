@@ -14,10 +14,10 @@ namespace XYO {
 	namespace Pixel32 {
 		namespace Version {
 
-			static const char *version_ = "1.11.0";
-			static const char *build_ = "21";
-			static const char *versionWithBuild_ = "1.11.0.21";
-			static const char *datetime_ = "2022-01-01 21:19:37";
+			static const char *version_ = "1.12.0";
+			static const char *build_ = "23";
+			static const char *versionWithBuild_ = "1.12.0.23";
+			static const char *datetime_ = "2022-01-09 01:13:07";
 
 			const char *version() {
 				return version_;
