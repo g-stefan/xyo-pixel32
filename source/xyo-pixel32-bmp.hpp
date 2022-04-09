@@ -11,7 +11,7 @@
 #define XYO_PIXEL32_BMP_HPP
 
 #ifndef XYO_PIXEL32__DEPENDENCY_HPP
-#include "xyo-pixel32--dependency.hpp"
+#	include "xyo-pixel32--dependency.hpp"
 #endif
 
 namespace XYO {
@@ -19,63 +19,62 @@ namespace XYO {
 
 		using namespace XYO;
 
-
 #define XYO_PIXEL32_BMP_FILE_ID 0x4D42
 
 #ifdef XYO_COMPILER_MSVC
-#include "pshpack1.h"
+#	include "pshpack1.h"
 #endif
 
 		typedef struct SBmpFileHeader {
-			uint16_t bfType;
-			uint32_t bfSize;
-			uint16_t bfReserved1;
-			uint16_t bfReserved2;
-			uint32_t bfOffBits;
+				uint16_t bfType;
+				uint32_t bfSize;
+				uint16_t bfReserved1;
+				uint16_t bfReserved2;
+				uint32_t bfOffBits;
 		} BmpFileHeader;
 
 		typedef struct SBmpInfoHeader {
-			uint32_t biSize;
-			uint32_t biWidth;
-			uint32_t biHeight;
-			uint16_t biPlanes;
-			uint16_t biBitCount;
-			uint32_t biCompression;
-			uint32_t biSizeImage;
-			uint32_t biXPelsPerMeter;
-			uint32_t biYPelsPerMeter;
-			uint32_t biClrUsed;
-			uint32_t biClrImportant;
+				uint32_t biSize;
+				uint32_t biWidth;
+				uint32_t biHeight;
+				uint16_t biPlanes;
+				uint16_t biBitCount;
+				uint32_t biCompression;
+				uint32_t biSizeImage;
+				uint32_t biXPelsPerMeter;
+				uint32_t biYPelsPerMeter;
+				uint32_t biClrUsed;
+				uint32_t biClrImportant;
 		} BmpInfoHeader;
 
 		typedef struct SBmpRgbQuad {
-			uint8_t rgbBlue;
-			uint8_t rgbGreen;
-			uint8_t rgbRed;
-			uint8_t rgbReserved;
+				uint8_t rgbBlue;
+				uint8_t rgbGreen;
+				uint8_t rgbRed;
+				uint8_t rgbReserved;
 		} BmpRgbQuad;
 
 		typedef struct SBmpRgbTriple {
-			uint8_t rgbtBlue;
-			uint8_t rgbtGreen;
-			uint8_t rgbtRed;
+				uint8_t rgbtBlue;
+				uint8_t rgbtGreen;
+				uint8_t rgbtRed;
 		} BmpRgbTriple;
 
 		typedef struct SBmpImage {
-			BmpFileHeader fh;
-			BmpInfoHeader ih;
+				BmpFileHeader fh;
+				BmpInfoHeader ih;
 		} BmpImage;
 
-
 #ifdef XYO_COMPILER_MSVC
-#include "poppack.h"
+#	include "poppack.h"
 #endif
 
-		class Bmp:
-			public virtual Object {
+		class Bmp : public virtual Object {
 				XYO_DISALLOW_COPY_ASSIGN_MOVE(Bmp);
+
 			protected:
 				BmpImage *image;
+
 			public:
 				XYO_PIXEL32_EXPORT Bmp();
 				XYO_PIXEL32_EXPORT ~Bmp();
@@ -94,7 +93,7 @@ namespace XYO {
 				};
 
 				XYO_PIXEL32_EXPORT static uint32_t scanLine(BmpInfoHeader &bih);
-				XYO_PIXEL32_EXPORT static void  calculateImageSizeNoCompression(BmpFileHeader &bfh, BmpInfoHeader &bih);
+				XYO_PIXEL32_EXPORT static void calculateImageSizeNoCompression(BmpFileHeader &bfh, BmpInfoHeader &bih);
 
 				XYO_PIXEL32_EXPORT void setPixel32(uint32_t x, uint32_t y, BmpRgbQuad &c);
 				XYO_PIXEL32_EXPORT void setPixel24(uint32_t x, uint32_t y, BmpRgbTriple &c);
@@ -131,7 +130,6 @@ namespace XYO {
 				XYO_PIXEL32_EXPORT void swapRBInvertA32();
 				XYO_PIXEL32_EXPORT void setAlpha32(uint8_t alpha);
 		};
-
 
 	};
 };

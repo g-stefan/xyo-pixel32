@@ -11,7 +11,7 @@
 #define XYO_PIXEL32_ICON_HPP
 
 #ifndef XYO_PIXEL32_BMP_HPP
-#include "xyo-pixel32-bmp.hpp"
+#	include "xyo-pixel32-bmp.hpp"
 #endif
 
 namespace XYO {
@@ -19,11 +19,11 @@ namespace XYO {
 
 		using namespace XYO;
 
-		class IconItem:
-			public virtual Object {
+		class IconItem : public virtual Object {
 				XYO_DISALLOW_COPY_ASSIGN_MOVE(IconItem);
+
 			public:
-				inline IconItem() {};
+				inline IconItem(){};
 				TPointer<Bmp> bmp;
 				TPointer<Bmp> mask;
 		};

@@ -11,19 +11,19 @@
 #define XYO_PIXEL32_PROCESS_HPP
 
 #ifndef XYO_PIXEL32_IMAGE_HPP
-#include "xyo-pixel32-image.hpp"
+#	include "xyo-pixel32-image.hpp"
 #endif
 
 #ifndef XYO_PIXEL32_BMP_HPP
-#include "xyo-pixel32-bmp.hpp"
+#	include "xyo-pixel32-bmp.hpp"
 #endif
 
 #ifndef XYO_PIXEL32_ICON_HPP
-#include "xyo-pixel32-icon.hpp"
+#	include "xyo-pixel32-icon.hpp"
 #endif
 
 #ifndef XYO_PIXEL32_KERNEL3X3_HPP
-#include "xyo-pixel32-kernel3x3.hpp"
+#	include "xyo-pixel32-kernel3x3.hpp"
 #endif
 
 namespace XYO {
@@ -53,17 +53,17 @@ namespace XYO {
 			};
 
 			inline double interpolateNearestNeighbor(double v0, double v1, double m) {
-				if(m <= 0.5) {
+				if (m <= 0.5) {
 					return v0;
 				};
 				return v1;
 			};
 
 			inline int pixelClampX(int x) {
-				if(x < 0) {
+				if (x < 0) {
 					return 0;
 				};
-				if(x > 255) {
+				if (x > 255) {
 					return 255;
 				};
 				return x;
@@ -72,7 +72,7 @@ namespace XYO {
 			inline Pixel alphaBlending(Pixel x1, Pixel x2) {
 				long int a, r, g, b;
 				a = XYO_PIXEL32_A(x1) + (XYO_PIXEL32_A(x2) * (255 - XYO_PIXEL32_A(x1))) / 255;
-				if(a == 0) {
+				if (a == 0) {
 					return 0;
 				};
 				r = (XYO_PIXEL32_R(x1) * XYO_PIXEL32_A(x1) + ((XYO_PIXEL32_R(x2) * XYO_PIXEL32_A(x2)) * (255 - XYO_PIXEL32_A(x1))) / 255) / a;
@@ -95,11 +95,11 @@ namespace XYO {
 			XYO_PIXEL32_EXPORT TPointer<Image> resize(Image *imgThis, long int nx, long int ny);
 			XYO_PIXEL32_EXPORT TPointer<Image> cut(Image *imgThis, long int sx, long int sy, long int lx, long int ly);
 			XYO_PIXEL32_EXPORT TPointer<Image> wrap(Image *imgThis, long int dx, long int dy);
-			XYO_PIXEL32_EXPORT TPointer<Image> wrapBox(Image *imgThis, long int  dx, long int  dy);
+			XYO_PIXEL32_EXPORT TPointer<Image> wrapBox(Image *imgThis, long int dx, long int dy);
 			//
 			XYO_PIXEL32_EXPORT void average(Image *imgInOut1, Image *imgIn2, uint32_t level1, uint32_t level2, uint32_t average);
-			XYO_PIXEL32_EXPORT void blend(Image *imgInOut1, Image *imgIn2, long int  dx, long int dy, long int sx, long int sy, long int lx, long int ly);
-			XYO_PIXEL32_EXPORT void copy(Image *imgThis, Image *imgIn2, long int dx, long int  dy, long int  sx, long int  sy, long int  lx, long int  ly);
+			XYO_PIXEL32_EXPORT void blend(Image *imgInOut1, Image *imgIn2, long int dx, long int dy, long int sx, long int sy, long int lx, long int ly);
+			XYO_PIXEL32_EXPORT void copy(Image *imgThis, Image *imgIn2, long int dx, long int dy, long int sx, long int sy, long int lx, long int ly);
 			XYO_PIXEL32_EXPORT void clear(Image *imgThis, Pixel pixel);
 			XYO_PIXEL32_EXPORT void noise(Image *imgIn, RandomMT &rnd);
 			XYO_PIXEL32_EXPORT void noise2Bit(Image *imgIn, RandomMT &rnd);
@@ -119,7 +119,7 @@ namespace XYO {
 			XYO_PIXEL32_EXPORT TPointer<Bmp> toBmp32(Image *inImage);
 			XYO_PIXEL32_EXPORT void backgroundAlpha(Image *inOutImage, Pixel background);
 			XYO_PIXEL32_EXPORT void backgroundAlphaLevel(Image *inOutImage, Pixel background, int level);
-			XYO_PIXEL32_EXPORT bool generateIcon(TDoubleEndedQueue<TPointer<IconItem> > &itemList, const char *fileName);
+			XYO_PIXEL32_EXPORT bool generateIcon(TDoubleEndedQueue<TPointer<IconItem>> &itemList, const char *fileName);
 			XYO_PIXEL32_EXPORT bool pngToIcon(const char *pngFile, const char *iconFile, int level, bool useBackgroundAlpha, uint32_t background);
 			XYO_PIXEL32_EXPORT bool pngToIcon(const char *pngFile48, const char *pngFile32, const char *pngFile24, const char *pngFile16, const char *iconFile, int level, bool useBackgroundAlpha, uint32_t background);
 			XYO_PIXEL32_EXPORT bool pngToIcon(TDynamicArray<String> &pngFile, const char *iconFile, int level, bool useBackgroundAlpha, uint32_t background);

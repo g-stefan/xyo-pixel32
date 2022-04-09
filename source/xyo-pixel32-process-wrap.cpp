@@ -21,7 +21,7 @@ namespace XYO {
 
 				TPointer<Image> retV;
 				retV = create(lx, ly);
-				if(retV) {
+				if (retV) {
 					copy(retV, imgThis, 0, 0, dx, dy, lx - dx, ly - dy);
 					copy(retV, imgThis, dx, 0, 0, dy, dx, ly - dx);
 					copy(retV, imgThis, 0, dy, dx, 0, lx - dx, dy);
@@ -33,6 +33,3 @@ namespace XYO {
 		};
 	};
 };
-
-
-

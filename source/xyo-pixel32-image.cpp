@@ -20,16 +20,13 @@ namespace XYO {
 		};
 
 		Image::~Image() {
-			if(pixel) {
+			if (pixel) {
 				delete[] pixel;
-
 			};
-			if(pixelMap) {
+			if (pixelMap) {
 				delete[] pixelMap;
-
 			};
 		};
 
 	};
 };
-

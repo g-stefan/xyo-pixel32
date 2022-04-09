@@ -9,7 +9,6 @@
 
 #include "xyo-pixel32-version.hpp"
 
-
 namespace XYO {
 	namespace Pixel32 {
 		namespace Version {
@@ -35,7 +34,3 @@ namespace XYO {
 		};
 	};
 };
-
-
-
-

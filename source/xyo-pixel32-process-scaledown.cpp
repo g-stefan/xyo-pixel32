@@ -20,27 +20,27 @@ namespace XYO {
 				uint32_t factorY = imgThis->height / ny;
 				TPointer<Image> retV = imgThis;
 
-				if(factorY > 1) {
-					if(factorX > 1) {
+				if (factorY > 1) {
+					if (factorX > 1) {
 						retV = scaleDownX2(retV);
 						return scaleDown(retV, nx, ny);
 					};
 					retV = scaleDownX2OnY(retV);
 					return scaleDown(retV, nx, ny);
 				};
-				if(factorX > 1) {
+				if (factorX > 1) {
 					retV = scaleDownX2OnX(retV);
 					return scaleDown(retV, nx, ny);
 				};
-				if(imgThis->height == ny) {
-					if(imgThis->width == nx) {
+				if (imgThis->height == ny) {
+					if (imgThis->width == nx) {
 						return retV;
 					};
 					retV = scaleUpBicubic(retV, nx * 2, ny);
 					retV = scaleDownX2OnX(retV);
 					return retV;
 				};
-				if(imgThis->width == nx) {
+				if (imgThis->width == nx) {
 					retV = scaleUpBicubic(retV, nx, ny * 2);
 					retV = scaleDownX2OnY(retV);
 					return retV;
@@ -53,5 +53,3 @@ namespace XYO {
 		};
 	};
 };
-
-

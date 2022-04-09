@@ -15,37 +15,37 @@ namespace XYO {
 
 			using namespace XYO;
 
-			void blend(Image *imgInOut1, Image *imgIn2, long int  dx, long int dy, long int sx, long int sy, long int lx, long int ly) {
+			void blend(Image *imgInOut1, Image *imgIn2, long int dx, long int dy, long int sx, long int sy, long int lx, long int ly) {
 
-				if(dx < 0) {
+				if (dx < 0) {
 					dx = 0;
 				};
-				if(dy < 0) {
+				if (dy < 0) {
 					dy = 0;
 				};
-				if(sx < 0) {
+				if (sx < 0) {
 					sx = 0;
 				};
-				if(sy < 0) {
+				if (sy < 0) {
 					sy = 0;
 				};
-				if(lx < 0) {
+				if (lx < 0) {
 					lx = 0;
 				};
-				if(ly < 0) {
+				if (ly < 0) {
 					ly = 0;
 				};
 
-				if(lx > imgIn2->width) {
+				if (lx > imgIn2->width) {
 					lx = imgIn2->width;
 				};
-				if(ly > imgIn2->height) {
+				if (ly > imgIn2->height) {
 					ly = imgIn2->height;
 				};
-				if(dx + lx >= imgInOut1->width) {
+				if (dx + lx >= imgInOut1->width) {
 					lx = imgInOut1->width - dx;
 				};
-				if(dy + ly >= imgInOut1->height) {
+				if (dy + ly >= imgInOut1->height) {
 					ly = imgInOut1->height - dy;
 				};
 
@@ -61,18 +61,14 @@ namespace XYO {
 
 				uint32_t r, g, b, a;
 
-				for(y = dy, my = sy; y < ey; ++y, ++my) {
-					for(x = dx, mx = sx; x < ex; ++x, ++mx) {
+				for (y = dy, my = sy; y < ey; ++y, ++my) {
+					for (x = dx, mx = sx; x < ex; ++x, ++mx) {
 
 						imgInOut1->pixel[y][x] = alphaBlending(imgIn2->pixel[my][mx], imgInOut1->pixel[y][x]);
-
 					};
 				};
-
 			};
-
 
 		};
 	};
 };
-

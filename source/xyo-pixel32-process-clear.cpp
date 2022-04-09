@@ -19,10 +19,10 @@ namespace XYO {
 				long int y;
 				Pixel *x;
 				Pixel *xe;
-				for(y = 0; y < imgThis->height; ++y) {
+				for (y = 0; y < imgThis->height; ++y) {
 					x = imgThis->pixel[y];
 					xe = x + imgThis->width;
-					while(x < xe) {
+					while (x < xe) {
 						*x++ = pixel;
 					};
 				};
@@ -31,4 +31,3 @@ namespace XYO {
 		};
 	};
 };
-

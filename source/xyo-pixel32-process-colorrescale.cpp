@@ -24,7 +24,6 @@ namespace XYO {
 				long int cxg;
 				long int cxb;
 
-
 				long int mina = 0xFF;
 				long int minr = 0xFF;
 				long int ming = 0xFF;
@@ -34,7 +33,6 @@ namespace XYO {
 				long int maxr = 0x00;
 				long int maxg = 0x00;
 				long int maxb = 0x00;
-
 
 				for (y = 0; y < imgInOut->height; ++y) {
 					for (x = 0; x < imgInOut->width; ++x) {
@@ -71,7 +69,6 @@ namespace XYO {
 						if (cxb > maxb) {
 							maxb = cxb;
 						};
-
 					};
 				};
 
@@ -80,29 +77,28 @@ namespace XYO {
 						cx = imgInOut->pixel[y][x];
 
 						cxa = XYO_PIXEL32_A(cx);
-						if((maxa - mina) > 0) {
+						if ((maxa - mina) > 0) {
 							cxa = ((cxa - mina) * 0xFF) / (maxa - mina);
 						} else {
 							cxa = 0xFF;
 						};
 
 						cxr = XYO_PIXEL32_R(cx);
-						if((maxr - minr) > 0) {
+						if ((maxr - minr) > 0) {
 							cxr = ((cxr - minr) * 0xFF) / (maxr - minr);
 						} else {
 							cxr = 0xFF;
 						};
 
 						cxg = XYO_PIXEL32_G(cx);
-						if((maxg - ming) > 0) {
+						if ((maxg - ming) > 0) {
 							cxg = ((cxg - ming) * 0xFF) / (maxg - ming);
 						} else {
 							cxg = 0xFF;
 						};
 
-
 						cxb = XYO_PIXEL32_G(cx);
-						if((maxb - minb) > 0) {
+						if ((maxb - minb) > 0) {
 							cxb = ((cxb - minb) * 0xFF) / (maxb - minb);
 						} else {
 							cxb = 0xFF;
@@ -111,10 +107,8 @@ namespace XYO {
 						imgInOut->pixel[y][x] = XYO_PIXEL32_PIXEL(cxr, cxg, cxb, cxa);
 					};
 				};
-
 			};
 
 		};
 	};
 };
-

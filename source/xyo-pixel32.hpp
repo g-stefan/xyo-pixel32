@@ -15,7 +15,7 @@
 #include "xyo-pixel32-copyright.hpp"
 #include "xyo-pixel32-license.hpp"
 #ifndef XYO_PIXEL32_NO_VERSION
-#include "xyo-pixel32-version.hpp"
+#	include "xyo-pixel32-version.hpp"
 #endif
 
 #include "xyo-pixel32-image.hpp"

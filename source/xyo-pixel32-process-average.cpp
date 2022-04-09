@@ -38,11 +38,8 @@ namespace XYO {
 						imgInOut1->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelClampX(cxr), pixelClampX(cxg), pixelClampX(cxb), pixelClampX(cxa));
 					};
 				};
-
 			};
 
 		};
 	};
 };
-
-

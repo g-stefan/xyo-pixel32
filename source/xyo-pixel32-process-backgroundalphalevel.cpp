@@ -24,15 +24,15 @@ namespace XYO {
 				Pixel cx;
 				int crx, cgx, cbx, cax;
 
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						cx = inOutImage->pixel[y][x];
 						cax = XYO_PIXEL32_A(cx);
 						crx = ((((uint32_t)(XYO_PIXEL32_R(cx))) * (cax) + ((uint32_t)(XYO_PIXEL32_R(background))) * (255 - cax)) / 255);
 						cgx = ((((uint32_t)(XYO_PIXEL32_G(cx))) * (cax) + ((uint32_t)(XYO_PIXEL32_G(background))) * (255 - cax)) / 255);
 						cbx = ((((uint32_t)(XYO_PIXEL32_B(cx))) * (cax) + ((uint32_t)(XYO_PIXEL32_B(background))) * (255 - cax)) / 255);
 
-						if(cax < level) {
+						if (cax < level) {
 							cax = 0;
 						} else {
 							cax = 255;
@@ -46,4 +46,3 @@ namespace XYO {
 		};
 	};
 };
-

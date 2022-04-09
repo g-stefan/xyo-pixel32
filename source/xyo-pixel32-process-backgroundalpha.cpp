@@ -24,10 +24,10 @@ namespace XYO {
 				Pixel cx;
 				int crx, cgx, cbx, cax;
 
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						cx = inOutImage->pixel[y][x];
-						if(XYO_PIXEL32_A(cx) == 0x00) {
+						if (XYO_PIXEL32_A(cx) == 0x00) {
 							inOutImage->pixel[y][x] = XYO_PIXEL32_CHANGE_A(background, 0x00);
 						};
 					};
@@ -37,4 +37,3 @@ namespace XYO {
 		};
 	};
 };
-

@@ -19,8 +19,8 @@ namespace XYO {
 				uint32_t factorX = nx / imgThis->width;
 				uint32_t factorY = ny / imgThis->height;
 				TPointer<Image> retV = imgThis;
-				if(factorY > 1) {
-					if(factorX > 1) {
+				if (factorY > 1) {
+					if (factorX > 1) {
 						retV = scaleUpBicubic(retV, retV->width * 2, retV->height * 2);
 						retV = kernel3X3(retV, Kernel3X3::filter8X1);
 						return scaleUp(retV, nx, ny);
@@ -29,13 +29,13 @@ namespace XYO {
 					retV = kernel3X3(retV, Kernel3X3::filter8X1);
 					return scaleUp(retV, nx, ny);
 				};
-				if(factorX > 1) {
+				if (factorX > 1) {
 					retV = scaleUpBicubic(retV, retV->width * 2, retV->height);
 					retV = kernel3X3(retV, Kernel3X3::filter8X1);
 					return scaleUp(retV, nx, ny);
 				};
-				if(imgThis->height == ny) {
-					if(imgThis->width == nx) {
+				if (imgThis->height == ny) {
+					if (imgThis->width == nx) {
 						return retV;
 					};
 				};
@@ -46,5 +46,3 @@ namespace XYO {
 		};
 	};
 };
-
-

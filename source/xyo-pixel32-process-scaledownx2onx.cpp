@@ -18,7 +18,7 @@ namespace XYO {
 			TPointer<Image> scaleDownX2OnX(Image *imgThis) {
 				TPointer<Image> retV;
 				retV = create(imgThis->width / 2, imgThis->height);
-				if(retV) {
+				if (retV) {
 					long int x, y;
 					uint32_t sumR;
 					uint32_t sumG;
@@ -26,10 +26,8 @@ namespace XYO {
 					uint32_t sumA;
 					Pixel pixel;
 
-
-
-					for(y = 0; y < retV->height; ++y) {
-						for(x = 0; x < retV->width; ++x) {
+					for (y = 0; y < retV->height; ++y) {
+						for (x = 0; x < retV->width; ++x) {
 
 							pixel = imgThis->pixel[y][x * 2];
 							sumR = XYO_PIXEL32_R(pixel) * XYO_PIXEL32_A(pixel);
@@ -44,7 +42,7 @@ namespace XYO {
 							sumA += XYO_PIXEL32_A(pixel);
 
 							sumA /= 2;
-							if(sumA > 0) {
+							if (sumA > 0) {
 								sumR /= sumA;
 								sumG /= sumA;
 								sumB /= sumA;
@@ -61,9 +59,6 @@ namespace XYO {
 							retV->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelClampX(sumR), pixelClampX(sumG), pixelClampX(sumB), pixelClampX(sumA));
 						};
 					};
-
-
-
 				};
 				return retV;
 			};
@@ -71,6 +66,3 @@ namespace XYO {
 		};
 	};
 };
-
-
-

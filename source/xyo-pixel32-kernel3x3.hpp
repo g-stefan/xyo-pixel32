@@ -11,7 +11,7 @@
 #define XYO_PIXEL32_KERNEL3X3_HPP
 
 #ifndef XYO_PIXEL32__DEPENDENCY_HPP
-#include "xyo-pixel32--dependency.hpp"
+#	include "xyo-pixel32--dependency.hpp"
 #endif
 
 namespace XYO {
@@ -19,11 +19,10 @@ namespace XYO {
 
 		using namespace XYO;
 
-		class Kernel3X3:
-			public Object {
+		class Kernel3X3 : public Object {
 				XYO_DISALLOW_COPY_ASSIGN_MOVE(Kernel3X3);
-			public:
 
+			public:
 				double v[3][3];
 				double normalA;
 				double normalB;
@@ -40,9 +39,7 @@ namespace XYO {
 				XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetectionV;
 				XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionH;
 				XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionV;
-
 		};
-
 
 	};
 };

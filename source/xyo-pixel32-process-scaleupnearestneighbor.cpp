@@ -17,9 +17,9 @@ namespace XYO {
 
 			TPointer<Image> scaleUpNearestNeighbor(Image *imgThis, long int nx, long int ny) {
 				TPointer<Image> retV;
-				if(nx >= imgThis->width && ny >= imgThis->height) {
+				if (nx >= imgThis->width && ny >= imgThis->height) {
 					retV = create(nx, ny);
-					if(retV) {
+					if (retV) {
 
 						double inX = (double)(imgThis->width - 1);
 						double inY = (double)(imgThis->height - 1);
@@ -62,8 +62,8 @@ namespace XYO {
 						double pX;
 						double pY;
 
-						for(y = 0; y < ny; ++y) {
-							for(x = 0; x < nx; ++x) {
+						for (y = 0; y < ny; ++y) {
+							for (x = 0; x < nx; ++x) {
 								pX = ((((double)x)) * deltaX);
 								pY = ((((double)y)) * deltaY);
 
@@ -94,7 +94,7 @@ namespace XYO {
 								pixelBY = interpolateNearestNeighbor(pixelB0, pixelB1, mY);
 								pixelAY = interpolateNearestNeighbor(pixelA0, pixelA1, mY);
 
-								if(pixelAY > 0) {
+								if (pixelAY > 0) {
 									pixelRY /= pixelAY;
 									pixelGY /= pixelAY;
 									pixelBY /= pixelAY;
@@ -105,7 +105,6 @@ namespace XYO {
 								};
 
 								retV->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelClampX(pixelRY), pixelClampX(pixelGY), pixelClampX(pixelBY), pixelClampX(pixelAY));
-
 							};
 						};
 					};
@@ -116,5 +115,3 @@ namespace XYO {
 		};
 	};
 };
-
-

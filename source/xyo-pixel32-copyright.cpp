@@ -9,7 +9,6 @@
 
 #include "xyo-pixel32-copyright.hpp"
 
-
 namespace XYO {
 	namespace Pixel32 {
 		namespace Copyright {
@@ -43,5 +42,3 @@ namespace XYO {
 		};
 	};
 };
-
-

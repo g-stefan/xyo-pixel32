@@ -29,8 +29,8 @@ namespace XYO {
 				TPointer<Image> retV;
 
 				retV = create(lx, ly);
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						pixel = getPixelX(imgThis, x - 1, y - 1);
 						sumR = kernel.v[0][0] * (((double)XYO_PIXEL32_R(pixel)) * ((double)XYO_PIXEL32_A(pixel)));
 						sumG = kernel.v[0][0] * (((double)XYO_PIXEL32_G(pixel)) * ((double)XYO_PIXEL32_A(pixel)));
@@ -48,7 +48,6 @@ namespace XYO {
 						sumG += kernel.v[0][2] * (((double)XYO_PIXEL32_G(pixel)) * ((double)XYO_PIXEL32_A(pixel)));
 						sumB += kernel.v[0][2] * (((double)XYO_PIXEL32_B(pixel)) * ((double)XYO_PIXEL32_A(pixel)));
 						sumA += kernel.v[0][2] * (XYO_PIXEL32_A(pixel));
-
 
 						pixel = getPixelX(imgThis, x - 1, y);
 						sumR += kernel.v[1][0] * (((double)XYO_PIXEL32_R(pixel)) * ((double)XYO_PIXEL32_A(pixel)));
@@ -88,7 +87,7 @@ namespace XYO {
 
 						sumA = (kernel.normalA * sumA) / kernel.normalB;
 
-						if(sumA > 0) {
+						if (sumA > 0) {
 
 							sumR /= sumA;
 							sumG /= sumA;
@@ -105,16 +104,11 @@ namespace XYO {
 						sumB = (kernel.normalA * sumB) / kernel.normalB;
 
 						retV->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelClampX(sumR), pixelClampX(sumG), pixelClampX(sumB), pixelClampX(sumA));
-
 					};
 				};
 				return retV;
 			};
 
-
 		};
 	};
 };
-
-
-

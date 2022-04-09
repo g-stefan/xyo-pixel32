@@ -11,17 +11,17 @@
 #define XYO_PIXEL32__EXPORT_HPP
 
 #ifndef XYO__EXPORT_HPP
-#include "xyo--export.hpp"
+#	include "xyo--export.hpp"
 #endif
 
 #ifdef XYO_COMPILE_DYNAMIC_LIBRARY
-#   ifdef  XYO_PIXEL32_INTERNAL
-#       define XYO_PIXEL32_EXPORT XYO_LIBRARY_EXPORT
-#   else
-#       define XYO_PIXEL32_EXPORT XYO_LIBRARY_IMPORT
-#   endif
+#	ifdef XYO_PIXEL32_INTERNAL
+#		define XYO_PIXEL32_EXPORT XYO_LIBRARY_EXPORT
+#	else
+#		define XYO_PIXEL32_EXPORT XYO_LIBRARY_IMPORT
+#	endif
 #else
-#   define XYO_PIXEL32_EXPORT
+#	define XYO_PIXEL32_EXPORT
 #endif
 
 #endif

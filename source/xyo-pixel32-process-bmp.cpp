@@ -16,7 +16,7 @@ namespace XYO {
 			using namespace XYO;
 
 			bool bmp32Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp1, int level) {
-				if(inBmp32->getPixelWidth() == 32) {
+				if (inBmp32->getPixelWidth() == 32) {
 					uint32_t lx, ly;
 
 					lx = inBmp32->getWidth();
@@ -27,7 +27,6 @@ namespace XYO {
 					uint32_t kx, ky;
 					BmpRgbQuad c32;
 					uint8_t c8;
-
 
 					c32.rgbBlue = 0;
 					c32.rgbGreen = 0;
@@ -40,11 +39,11 @@ namespace XYO {
 					c32.rgbReserved = 0;
 					outBmp1->setPaletteIndex(1, c32);
 
-					for(ky = 0; ky < ly; ky++) {
-						for(kx = 0; kx < lx; kx++) {
+					for (ky = 0; ky < ly; ky++) {
+						for (kx = 0; kx < lx; kx++) {
 							inBmp32->getPixel32(kx, ky, c32);
 							c8 = c32.rgbReserved;
-							if(c8 < level) {
+							if (c8 < level) {
 								c8 = 1;
 							} else {
 								c8 = 0;
@@ -54,13 +53,12 @@ namespace XYO {
 					};
 
 					return true;
-
 				};
 				return false;
 			};
 
 			bool bmp32To24Alpha8(Bmp *inBmp32, TPointer<Bmp> &outBmp24, TPointer<Bmp> &outBmp8) {
-				if(inBmp32->getPixelWidth() == 32) {
+				if (inBmp32->getPixelWidth() == 32) {
 					uint32_t lx, ly;
 
 					lx = inBmp32->getWidth();
@@ -74,9 +72,8 @@ namespace XYO {
 					BmpRgbTriple c24;
 					uint8_t c8;
 
-
-					for(ky = 0; ky < ly; ky++) {
-						for(kx = 0; kx < lx; kx++) {
+					for (ky = 0; ky < ly; ky++) {
+						for (kx = 0; kx < lx; kx++) {
 							inBmp32->getPixel32(kx, ky, c32);
 							c24.rgbtBlue = c32.rgbBlue;
 							c24.rgbtGreen = c32.rgbGreen;
@@ -85,25 +82,22 @@ namespace XYO {
 						};
 					};
 
-
-					for(kx = 0; kx < 256; kx++) {
+					for (kx = 0; kx < 256; kx++) {
 						c32.rgbBlue = (uint8_t)kx;
 						c32.rgbGreen = (uint8_t)kx;
 						c32.rgbRed = (uint8_t)kx;
 						c32.rgbReserved = 0;
 						outBmp8->setPaletteIndex((uint8_t)kx, c32);
 					};
-					for(ky = 0; ky < ly; ky++) {
-						for(kx = 0; kx < lx; kx++) {
+					for (ky = 0; ky < ly; ky++) {
+						for (kx = 0; kx < lx; kx++) {
 							inBmp32->getPixel32(kx, ky, c32);
 							c8 = c32.rgbReserved;
 							outBmp8->setPixel8(kx, ky, c8);
 						};
 					};
 
-
 					return true;
-
 				};
 
 				return false;
@@ -112,7 +106,7 @@ namespace XYO {
 			bool bmp32To8Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp8, TPointer<Bmp> &outBmp1, int level, bool &noFreeColorsLeft) {
 				noFreeColorsLeft = false;
 
-				if(inBmp32->getPixelWidth() == 32) {
+				if (inBmp32->getPixelWidth() == 32) {
 					uint32_t lx, ly;
 
 					lx = inBmp32->getWidth();
@@ -127,24 +121,21 @@ namespace XYO {
 					uint8_t c8;
 					int index, k;
 
-
 					index = 0;
-					for(ky = 0; ky < ly; ky++) {
-						for(kx = 0; kx < lx; kx++) {
+					for (ky = 0; ky < ly; ky++) {
+						for (kx = 0; kx < lx; kx++) {
 							inBmp32->getPixel32(kx, ky, c32);
 
-							for(k = 0; k < index; ++k) {
+							for (k = 0; k < index; ++k) {
 								outBmp8->getPaletteIndex((uint8_t)k, cx32);
-								if((cx32.rgbBlue == c32.rgbBlue)
-									&& (cx32.rgbGreen == c32.rgbGreen)
-									&& (cx32.rgbRed == c32.rgbRed)) {
+								if ((cx32.rgbBlue == c32.rgbBlue) && (cx32.rgbGreen == c32.rgbGreen) && (cx32.rgbRed == c32.rgbRed)) {
 									break;
 								};
 							};
-							if(k < index) {
+							if (k < index) {
 								c8 = (uint8_t)k;
 							} else {
-								if(index < 256) {
+								if (index < 256) {
 									c8 = (uint8_t)index;
 									c32.rgbReserved = 0;
 									outBmp8->setPaletteIndex(c8, c32);
@@ -158,22 +149,18 @@ namespace XYO {
 						};
 					};
 
-
-					if(bmp32Alpha1(inBmp32, outBmp1, level)) {
+					if (bmp32Alpha1(inBmp32, outBmp1, level)) {
 						return true;
 					};
-
-
 				};
 
 				return false;
 			};
 
-
 			bool bmp32To4Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp4, TPointer<Bmp> &outBmp1, int level, bool &noFreeColorsLeft) {
 				noFreeColorsLeft = false;
 
-				if(inBmp32->getPixelWidth() == 32) {
+				if (inBmp32->getPixelWidth() == 32) {
 					uint32_t lx, ly;
 
 					lx = inBmp32->getWidth();
@@ -188,25 +175,22 @@ namespace XYO {
 					uint8_t c4;
 					int index, k;
 
-
 					index = 0;
-					for(ky = 0; ky < ly; ky++) {
-						for(kx = 0; kx < lx; kx++) {
+					for (ky = 0; ky < ly; ky++) {
+						for (kx = 0; kx < lx; kx++) {
 							inBmp32->getPixel32(kx, ky, c32);
 
-							for(k = 0; k < index; ++k) {
+							for (k = 0; k < index; ++k) {
 								outBmp4->getPaletteIndex((uint8_t)k, cx32);
-								if((cx32.rgbBlue == c32.rgbBlue)
-									&& (cx32.rgbGreen == c32.rgbGreen)
-									&& (cx32.rgbRed == c32.rgbRed)) {
+								if ((cx32.rgbBlue == c32.rgbBlue) && (cx32.rgbGreen == c32.rgbGreen) && (cx32.rgbRed == c32.rgbRed)) {
 									break;
 								};
 							};
 
-							if(k < index) {
+							if (k < index) {
 								c4 = (uint8_t)k;
 							} else {
-								if(index < 16) {
+								if (index < 16) {
 									c4 = (uint8_t)index;
 									c32.rgbReserved = 0;
 									outBmp4->setPaletteIndex(c4, c32);
@@ -220,17 +204,12 @@ namespace XYO {
 						};
 					};
 
-
-					if(bmp32Alpha1(inBmp32, outBmp1, level)) {
+					if (bmp32Alpha1(inBmp32, outBmp1, level)) {
 						return true;
 					};
-
-
-
 				};
 				return false;
 			};
-
 
 			TPointer<Bmp> alphaToBmp8(Image *inImage) {
 				uint32_t lx, ly;
@@ -244,7 +223,7 @@ namespace XYO {
 				int crx, cgx, cbx;
 				int palleteIndex;
 				BmpRgbQuad palleteColor;
-				for(palleteIndex = 0; palleteIndex < 256; ++palleteIndex) {
+				for (palleteIndex = 0; palleteIndex < 256; ++palleteIndex) {
 					palleteColor.rgbBlue = 0x00;
 					palleteColor.rgbGreen = 0x00;
 					palleteColor.rgbRed = 0x00;
@@ -252,15 +231,14 @@ namespace XYO {
 					outBmp8->setPaletteIndex(palleteIndex, palleteColor);
 				};
 
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						c8 = XYO_PIXEL32_A(inImage->pixel[ly - y - 1][x]);
 						outBmp8->setPixel8(x, y, c8);
 					};
 				};
 				return outBmp8;
 			};
-
 
 			TPointer<Bmp> alphaToBmp1(Image *inImage, int level) {
 				uint32_t lx, ly;
@@ -286,9 +264,9 @@ namespace XYO {
 				uint32_t x, y;
 				uint8_t cx;
 
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
-						if(XYO_PIXEL32_A(inImage->pixel[ly - y - 1][x]) < level) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
+						if (XYO_PIXEL32_A(inImage->pixel[ly - y - 1][x]) < level) {
 							cx = 1;
 						} else {
 							cx = 0;
@@ -300,7 +278,6 @@ namespace XYO {
 				return outBmp1;
 			};
 
-
 			TPointer<Bmp> toBmp24(Image *inImage) {
 				uint32_t lx, ly;
 
@@ -310,8 +287,8 @@ namespace XYO {
 				TPointer<Bmp> outBmp24 = Bmp::newImage24Bits(lx, ly);
 				uint32_t x, y, cx;
 				BmpRgbTriple color;
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						cx = inImage->pixel[ly - y - 1][x];
 						color.rgbtRed = XYO_PIXEL32_R(cx);
 						color.rgbtGreen = XYO_PIXEL32_G(cx);
@@ -331,8 +308,8 @@ namespace XYO {
 				TPointer<Bmp> outBmp32 = Bmp::newImage32Bits(lx, ly);
 				uint32_t x, y, cx;
 				BmpRgbQuad color;
-				for(y = 0; y < ly; ++y) {
-					for(x = 0; x < lx; ++x) {
+				for (y = 0; y < ly; ++y) {
+					for (x = 0; x < lx; ++x) {
 						cx = inImage->pixel[ly - y - 1][x];
 						color.rgbRed = XYO_PIXEL32_R(cx);
 						color.rgbGreen = XYO_PIXEL32_G(cx);
@@ -344,8 +321,6 @@ namespace XYO {
 				return outBmp32;
 			};
 
-
 		};
 	};
 };
-

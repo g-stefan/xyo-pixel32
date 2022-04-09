@@ -10,17 +10,17 @@
 #ifndef XYO_PIXEL32_COPYRIGHT_HPP
 #define XYO_PIXEL32_COPYRIGHT_HPP
 
-#define XYO_PIXEL32_COPYRIGHT            "Copyright (C) Grigore Stefan."
-#define XYO_PIXEL32_PUBLISHER            "Grigore Stefan"
-#define XYO_PIXEL32_COMPANY              XYO_PIXEL32_PUBLISHER
-#define XYO_PIXEL32_CONTACT              "g_stefan@yahoo.com"
-#define XYO_PIXEL32_FULL_COPYRIGHT       XYO_PIXEL32_COPYRIGHT " <" XYO_PIXEL32_CONTACT ">"
+#define XYO_PIXEL32_COPYRIGHT "Copyright (C) Grigore Stefan."
+#define XYO_PIXEL32_PUBLISHER "Grigore Stefan"
+#define XYO_PIXEL32_COMPANY XYO_PIXEL32_PUBLISHER
+#define XYO_PIXEL32_CONTACT "g_stefan@yahoo.com"
+#define XYO_PIXEL32_FULL_COPYRIGHT XYO_PIXEL32_COPYRIGHT " <" XYO_PIXEL32_CONTACT ">"
 
 #ifndef XYO_RC
 
-#ifndef XYO_PIXEL32__EXPORT_HPP
-#include "xyo-pixel32--export.hpp"
-#endif
+#	ifndef XYO_PIXEL32__EXPORT_HPP
+#		include "xyo-pixel32--export.hpp"
+#	endif
 
 namespace XYO {
 	namespace Pixel32 {
@@ -33,7 +33,6 @@ namespace XYO {
 		};
 	};
 };
-
 
 #endif
 #endif

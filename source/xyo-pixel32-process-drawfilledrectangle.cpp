@@ -19,37 +19,35 @@ namespace XYO {
 				long int x;
 				long int y;
 
-				if(sx < 0) {
+				if (sx < 0) {
 					sx = 0;
 				};
-				if(sy < 0) {
+				if (sy < 0) {
 					sy = 0;
 				};
 
-				if(sx + lx >= imgThis->width) {
+				if (sx + lx >= imgThis->width) {
 					lx = imgThis->width - sx;
 				};
-				if(sy + ly >= imgThis->height) {
+				if (sy + ly >= imgThis->height) {
 					ly = imgThis->height - sy;
 				};
 
-				if(lx < 0) {
+				if (lx < 0) {
 					lx = 0;
 				};
-				if(ly < 0) {
+				if (ly < 0) {
 					ly = 0;
 				};
 
 				lx += sx;
 				ly += sy;
 
-
-				for(y = sy; y < ly; ++y) {
-					for(x = sx; x < lx; ++x) {
+				for (y = sy; y < ly; ++y) {
+					for (x = sx; x < lx; ++x) {
 						imgThis->pixel[y][x] = alphaBlending(pixel, imgThis->pixel[y][x]);
 					};
 				};
-
 			};
 
 		};

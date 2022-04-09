@@ -10,17 +10,16 @@
 #ifndef XYO_PIXEL32_VERSION_HPP
 #define XYO_PIXEL32_VERSION_HPP
 
-#define XYO_PIXEL32_VERSION_ABCD               1,12,0,23
-#define XYO_PIXEL32_VERSION_STR                 "1.12.0"
-#define XYO_PIXEL32_VERSION_STR_BUILD           "23"
-#define XYO_PIXEL32_VERSION_STR_DATETIME        "2022-01-09 01:13:07"
+#define XYO_PIXEL32_VERSION_ABCD 1,13,0,24
+#define XYO_PIXEL32_VERSION_STR "1.13.0"
+#define XYO_PIXEL32_VERSION_STR_BUILD "24"
+#define XYO_PIXEL32_VERSION_STR_DATETIME "2022-04-04 01:44:50"
 
 #ifndef XYO_RC
 
-#ifndef XYO_PIXEL32__EXPORT_HPP
-#include "xyo-pixel32--export.hpp"
-#endif
-
+#	ifndef XYO_PIXEL32__EXPORT_HPP
+#		include "xyo-pixel32--export.hpp"
+#	endif
 
 namespace XYO {
 	namespace Pixel32 {
@@ -33,7 +32,5 @@ namespace XYO {
 	};
 };
 
-
 #endif
 #endif
-

@@ -11,7 +11,7 @@
 #define XYO_PIXEL32_LICENSE_HPP
 
 #ifndef XYO_PIXEL32__EXPORT_HPP
-#include "xyo-pixel32--export.hpp"
+#	include "xyo-pixel32--export.hpp"
 #endif
 
 namespace XYO {

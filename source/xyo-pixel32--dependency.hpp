@@ -8,18 +8,18 @@
 //
 
 #ifndef XYO_PIXEL32__DEPENDENCY_HPP
-#define XYO_PIXEL32__DEPENDENCYHPP
+#	define XYO_PIXEL32__DEPENDENCYHPP
 
-#ifndef XYO_HPP
-#include "xyo.hpp"
-#endif
+#	ifndef XYO_HPP
+#		include "xyo.hpp"
+#	endif
 
-#ifndef XYO_PIXEL32__EXPORT_HPP
-#include "xyo-pixel32--export.hpp"
-#endif
+#	ifndef XYO_PIXEL32__EXPORT_HPP
+#		include "xyo-pixel32--export.hpp"
+#	endif
 
-#ifndef XYO_PIXEL32__CONFIG_HPP
-#include "xyo-pixel32--config.hpp"
-#endif
+#	ifndef XYO_PIXEL32__CONFIG_HPP
+#		include "xyo-pixel32--config.hpp"
+#	endif
 
 #endif

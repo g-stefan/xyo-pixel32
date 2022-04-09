@@ -15,14 +15,14 @@ namespace XYO {
 
 			using namespace XYO;
 
-			TPointer<Image> wrapBox(Image *imgThis, long int  dx, long int  dy) {
+			TPointer<Image> wrapBox(Image *imgThis, long int dx, long int dy) {
 				uint32_t lx = imgThis->width;
 				uint32_t ly = imgThis->height;
 
 				TPointer<Image> retV;
 
 				retV = create(lx + 2 * dx, ly + 2 * dy);
-				if(retV) {
+				if (retV) {
 					// center
 					copy(retV, imgThis, dx, dy, 0, 0, lx, ly);
 					// top
@@ -33,9 +33,9 @@ namespace XYO {
 					copy(retV, imgThis, 0, ly + dy, lx - dx, 0, dx, dy);
 					copy(retV, imgThis, dx, ly + dy, 0, 0, lx, dy);
 					copy(retV, imgThis, lx + dx, ly + dy, 0, 0, dx, dy);
-					//right
+					// right
 					copy(retV, imgThis, lx + dx, dy, 0, 0, dx, ly);
-					//left
+					// left
 					copy(retV, imgThis, 0, dy, lx - dx, 0, dx, ly);
 				};
 				return retV;
@@ -44,6 +44,3 @@ namespace XYO {
 		};
 	};
 };
-
-
-
