@@ -1,0 +1,23 @@
+{
+	"project": {
+		"name":"xyo-pixel32",
+		"type":"xyo-cpp",
+		"make" : "lib-and-dll",
+		"SPDX-License-Identifier": "MIT",
+		"sourcePath" : [
+			"XYO/Pixel32",
+			"XYO/Pixel32/Process"
+		],
+		"testSource" : [
+			"test.01"
+		],
+		"dependency" : [
+			"xyo-system",
+			"xyo-cryptography"
+		],
+		"library" : [
+			"libpng",
+			"libz"
+		]
+	}
+}
