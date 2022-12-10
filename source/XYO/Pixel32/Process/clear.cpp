@@ -8,19 +8,19 @@
 
 namespace XYO::Pixel32::Process {
 
-			using namespace XYO;
+	using namespace XYO;
 
-			void clear(Image *imgThis, Pixel pixel) {
-				long int y;
-				Pixel *x;
-				Pixel *xe;
-				for (y = 0; y < imgThis->height; ++y) {
-					x = imgThis->pixel[y];
-					xe = x + imgThis->width;
-					while (x < xe) {
-						*x++ = pixel;
-					};
-				};
+	void clear(Image *imgThis, Pixel pixel) {
+		long int y;
+		Pixel *x;
+		Pixel *xe;
+		for (y = 0; y < imgThis->height; ++y) {
+			x = imgThis->pixel[y];
+			xe = x + imgThis->width;
+			while (x < xe) {
+				*x++ = pixel;
 			};
-
 		};
+	};
+
+};

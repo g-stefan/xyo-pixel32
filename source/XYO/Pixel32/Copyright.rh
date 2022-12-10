@@ -7,10 +7,9 @@
 #ifndef XYO_PIXEL32_COPYRIGHT_RH
 #define XYO_PIXEL32_COPYRIGHT_RH
 
-#define XYO_PIXEL32_COPYRIGHT "Copyright (c) 2022 Grigore Stefan"
+#define XYO_PIXEL32_COPYRIGHT "Copyright (c) 2022 Grigore Stefan <g_stefan@yahoo.com>"
 #define XYO_PIXEL32_PUBLISHER "Grigore Stefan"
 #define XYO_PIXEL32_COMPANY XYO_PIXEL32_PUBLISHER
 #define XYO_PIXEL32_CONTACT "g_stefan@yahoo.com"
-#define XYO_PIXEL32_FULL_COPYRIGHT XYO_PIXEL32_COPYRIGHT " <" XYO_PIXEL32_CONTACT ">"
 
 #endif

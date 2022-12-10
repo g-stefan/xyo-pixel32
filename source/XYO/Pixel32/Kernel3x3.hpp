@@ -13,28 +13,28 @@
 
 namespace XYO::Pixel32 {
 
-		class Kernel3X3 : public Object {
-				XYO_DISALLOW_COPY_ASSIGN_MOVE(Kernel3X3);
+	class Kernel3X3 : public Object {
+			XYO_DISALLOW_COPY_ASSIGN_MOVE(Kernel3X3);
 
-			public:
-				double v[3][3];
-				double normalA;
-				double normalB;
-				XYO_PIXEL32_EXPORT Kernel3X3();
-				XYO_PIXEL32_EXPORT Kernel3X3(const double v_[3][3], const double normalA_, const double normalB_);
-				XYO_PIXEL32_EXPORT void copy(Kernel3X3 &src);
+		public:
+			double v[3][3];
+			double normalA;
+			double normalB;
+			XYO_PIXEL32_EXPORT Kernel3X3();
+			XYO_PIXEL32_EXPORT Kernel3X3(const double v_[3][3], const double normalA_, const double normalB_);
+			XYO_PIXEL32_EXPORT void copy(Kernel3X3 &src);
 
-				XYO_PIXEL32_EXPORT static Kernel3X3 filter8X1;
-				XYO_PIXEL32_EXPORT static Kernel3X3 gaussian;
-				XYO_PIXEL32_EXPORT static Kernel3X3 blur;
-				XYO_PIXEL32_EXPORT static Kernel3X3 sharpen;
-				XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetection;
-				XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetectionH;
-				XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetectionV;
-				XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionH;
-				XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionV;
-		};
-
+			XYO_PIXEL32_EXPORT static Kernel3X3 filter8X1;
+			XYO_PIXEL32_EXPORT static Kernel3X3 gaussian;
+			XYO_PIXEL32_EXPORT static Kernel3X3 blur;
+			XYO_PIXEL32_EXPORT static Kernel3X3 sharpen;
+			XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetection;
+			XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetectionH;
+			XYO_PIXEL32_EXPORT static Kernel3X3 edgeDetectionV;
+			XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionH;
+			XYO_PIXEL32_EXPORT static Kernel3X3 gradientDetectionV;
 	};
+
+};
 
 #endif

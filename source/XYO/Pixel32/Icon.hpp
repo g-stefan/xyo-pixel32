@@ -13,15 +13,15 @@
 
 namespace XYO::Pixel32 {
 
-		class IconItem : public virtual Object {
-				XYO_DISALLOW_COPY_ASSIGN_MOVE(IconItem);
+	class IconItem : public virtual Object {
+			XYO_DISALLOW_COPY_ASSIGN_MOVE(IconItem);
 
-			public:
-				inline IconItem(){};
-				TPointer<Bmp> bmp;
-				TPointer<Bmp> mask;
-		};
-
+		public:
+			inline IconItem(){};
+			TPointer<Bmp> bmp;
+			TPointer<Bmp> mask;
 	};
+
+};
 
 #endif

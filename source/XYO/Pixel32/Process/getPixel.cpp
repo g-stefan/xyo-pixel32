@@ -8,13 +8,13 @@
 
 namespace XYO::Pixel32::Process {
 
-			using namespace XYO;
+	using namespace XYO;
 
-			Pixel getPixel(Image *imgThis, long int x, long int y) {
-				if (x < 0 || y < 0 || x >= imgThis->width || y >= imgThis->height) {
-					return 0L;
-				};
-				return imgThis->pixel[y][x];
-			};
-
+	Pixel getPixel(Image *imgThis, long int x, long int y) {
+		if (x < 0 || y < 0 || x >= imgThis->width || y >= imgThis->height) {
+			return 0L;
 		};
+		return imgThis->pixel[y][x];
+	};
+
+};

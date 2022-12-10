@@ -13,7 +13,6 @@ namespace XYO::Pixel32::Copyright {
 	static const char *publisher_ = XYO_PIXEL32_PUBLISHER;
 	static const char *company_ = XYO_PIXEL32_COMPANY;
 	static const char *contact_ = XYO_PIXEL32_CONTACT;
-	static const char *fullCopyright_ = XYO_PIXEL32_FULL_COPYRIGHT;
 
 	const char *copyright() {
 		return copyright_;
@@ -29,10 +28,6 @@ namespace XYO::Pixel32::Copyright {
 
 	const char *contact() {
 		return contact_;
-	};
-
-	const char *fullCopyright() {
-		return fullCopyright_;
 	};
 
 };

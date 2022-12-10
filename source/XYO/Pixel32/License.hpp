@@ -13,8 +13,7 @@
 
 namespace XYO::Pixel32::License {
 
-	XYO_PIXEL32_EXPORT const char *licenseHeader();
-	XYO_PIXEL32_EXPORT const char *licenseBody();
+	XYO_PIXEL32_EXPORT const char *license();
 	XYO_PIXEL32_EXPORT const char *shortLicense();
 
 };

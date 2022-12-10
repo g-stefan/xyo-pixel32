@@ -8,20 +8,20 @@
 
 namespace XYO::Pixel32 {
 
-		Image::Image() {
-			width = 0;
-			height = 0;
-			pixel = NULL;
-			pixelMap = NULL;
-		};
-
-		Image::~Image() {
-			if (pixel) {
-				delete[] pixel;
-			};
-			if (pixelMap) {
-				delete[] pixelMap;
-			};
-		};
-
+	Image::Image() {
+		width = 0;
+		height = 0;
+		pixel = NULL;
+		pixelMap = NULL;
 	};
+
+	Image::~Image() {
+		if (pixel) {
+			delete[] pixel;
+		};
+		if (pixelMap) {
+			delete[] pixelMap;
+		};
+	};
+
+};

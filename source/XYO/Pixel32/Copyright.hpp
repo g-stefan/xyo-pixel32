@@ -16,7 +16,6 @@ namespace XYO::Pixel32::Copyright {
 	XYO_PIXEL32_EXPORT const char *publisher();
 	XYO_PIXEL32_EXPORT const char *company();
 	XYO_PIXEL32_EXPORT const char *contact();
-	XYO_PIXEL32_EXPORT const char *fullCopyright();
 };
 
 #endif
