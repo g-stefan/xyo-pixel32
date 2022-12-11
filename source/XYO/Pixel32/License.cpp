@@ -9,6 +9,7 @@
 namespace XYO::Pixel32::License {
 
 	const char *license() {
+		return
 #include <XYO/Pixel32/License.xyo-pixel32.Source.cpp>
 		"\r\n"
 		"libpng\r\n"
@@ -24,23 +25,5 @@ namespace XYO::Pixel32::License {
 	const char *shortLicense() {
 		return XYO::ManagedMemory::License::shortLicense();
 	};
-
-	const char *licenseBody() {
-		return
-#include <XYO/Pixel32/License.xyo-pixel32.Source.cpp>
-		    "\r\n"
-		    "libpng\r\n"
-		    "\r\n"
-#include <XYO/Pixel32/License.libpng.Source.cpp>
-		    "\r\n"
-		    "zlib\r\n"
-		    "\r\n"
-#include <XYO/Pixel32/License.zlib.Source.cpp>
-		    ;
-	};
-
-	const char *shortLicense() {
-		return shortLicense_;
-	};
-
+	
 };
