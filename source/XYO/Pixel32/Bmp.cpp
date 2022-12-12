@@ -4,7 +4,7 @@
 // SPDX-FileCopyrightText: 2022 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
-#include <XYO/Pixel32/bmp.hpp>
+#include <XYO/Pixel32/Bmp.hpp>
 
 namespace XYO::Pixel32 {
 
