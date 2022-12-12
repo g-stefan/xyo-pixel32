@@ -4,7 +4,7 @@
 // SPDX-FileCopyrightText: 2022 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
-#include <XYO/Pixel32/kernel3x3.hpp>
+#include <XYO/Pixel32/Kernel3x3.hpp>
 
 namespace XYO::Pixel32 {
 
