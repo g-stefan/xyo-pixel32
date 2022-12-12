@@ -13,9 +13,19 @@
 		],
 		"dependency" : [
 			"xyo-system",
-			"xyo-cryptography",
-			"libpng",
-			"libz"			
-		]
+			"xyo-cryptography"				
+		],
+		"osWindows" : {
+			"dependency" : [				
+				"libpng",
+				"libz"
+			]
+		},
+		"osLinux" : {
+			"library" : [
+				"libpng",
+				"libz"
+			]
+		}
 	}
 }
