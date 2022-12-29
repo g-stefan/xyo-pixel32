@@ -26,6 +26,8 @@
 				"libpng",
 				"libz"
 			]
-		}
+		},
+		"hasRelease" : true,
+		"githubRelease" : true
 	}
 }
