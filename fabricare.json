@@ -1,33 +1,37 @@
 {
-	"project": {
-		"name":"xyo-pixel32",
-		"type":"xyo-cpp",
-		"make" : "lib-and-dll",
-		"SPDX-License-Identifier": "MIT",
-		"sourcePath" : [
-			"XYO/Pixel32",
-			"XYO/Pixel32/Process"
+	"solution": {
+		"name" : "xyo-pixel32",
+		"type" : "xyo-cpp",
+		"projects": [
+			{
+				"name" : "xyo-pixel32",
+				"make" : "lib-and-dll",
+				"SPDX-License-Identifier": "MIT",
+				"sourcePath" : [
+					"XYO/Pixel32",
+					"XYO/Pixel32/Process"
+				],
+				"testSource" : [
+					"test.01"
+				],
+				"dependency" : [
+					"xyo-system",
+					"xyo-cryptography"				
+				],
+				"osWindows" : {
+					"dependency" : [				
+						"libpng",
+						"libz"
+					]
+				},
+				"osLinux" : {
+					"library" : [
+						"libpng",
+						"libz"
+					]
+				}
+			}
 		],
-		"testSource" : [
-			"test.01"
-		],
-		"dependency" : [
-			"xyo-system",
-			"xyo-cryptography"				
-		],
-		"osWindows" : {
-			"dependency" : [				
-				"libpng",
-				"libz"
-			]
-		},
-		"osLinux" : {
-			"library" : [
-				"libpng",
-				"libz"
-			]
-		},
-		"hasRelease" : true,
-		"githubRelease" : true
+		"hasGithub" : true
 	}
 }
