@@ -11,9 +11,6 @@
 					"XYO/Pixel32",
 					"XYO/Pixel32/Process"
 				],
-				"testSource" : [
-					"test.01"
-				],
 				"dependency" : [
 					"xyo-system",
 					"xyo-cryptography"				
