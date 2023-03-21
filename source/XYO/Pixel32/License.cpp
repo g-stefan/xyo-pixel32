@@ -5,25 +5,33 @@
 // SPDX-License-Identifier: MIT
 
 #include <XYO/Pixel32/License.hpp>
+#include <XYO/Pixel32/Copyright.hpp>
 
 namespace XYO::Pixel32::License {
 
-	const char *license() {
-		return
-#include <XYO/Pixel32/License.xyo-pixel32.Source.cpp>
-		"\r\n"
-		"libpng\r\n"
-		"\r\n"
+	std::string license() {
+		std::string retV;
+		retV += ManagedMemory::License::licenseMITHeader();
+		retV += Copyright::copyright();
+		retV += "\r\n";
+		retV += ManagedMemory::License::licenseMITContent();
+
+		retV +=
+		    "\r\n"
+		    "libpng\r\n"
+		    "\r\n"
 #include <XYO/Pixel32/License.libpng.Source.cpp>
-		"\r\n"
-		"zlib\r\n"
-		"\r\n"
+		    "\r\n"
+		    "zlib\r\n"
+		    "\r\n"
 #include <XYO/Pixel32/License.zlib.Source.cpp>
 		    ;
+
+		return retV;
 	};
 
-	const char *shortLicense() {
+	std::string shortLicense() {
 		return XYO::ManagedMemory::License::shortLicense();
 	};
-	
+
 };

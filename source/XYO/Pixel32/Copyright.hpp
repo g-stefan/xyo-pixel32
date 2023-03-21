@@ -12,10 +12,10 @@
 #endif
 
 namespace XYO::Pixel32::Copyright {
-	XYO_PIXEL32_EXPORT const char *copyright();
-	XYO_PIXEL32_EXPORT const char *publisher();
-	XYO_PIXEL32_EXPORT const char *company();
-	XYO_PIXEL32_EXPORT const char *contact();
+	XYO_PIXEL32_EXPORT std::string copyright();
+	XYO_PIXEL32_EXPORT std::string publisher();
+	XYO_PIXEL32_EXPORT std::string company();
+	XYO_PIXEL32_EXPORT std::string contact();
 };
 
 #endif
