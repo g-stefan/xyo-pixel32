@@ -83,8 +83,8 @@ namespace XYO::Pixel32::Process {
 		ey = dy + ly;
 		ex = dx + lx;
 
-		if (ex > imgThis->height) {
-			ex = imgThis->height;
+		if (ex > imgThis->width) {
+			ex = imgThis->width;
 		};
 
 		if (ey > imgThis->height) {
