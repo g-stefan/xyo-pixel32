@@ -1,18 +1,18 @@
 // Pixel32
-// Copyright (c) 2016-2023 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2023 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #ifndef XYO_PIXEL32_VERSION_RH
 #define XYO_PIXEL32_VERSION_RH
 
 #ifndef XYO_PIXEL32_NO_VERSION
-#define XYO_PIXEL32_VERSION_ABCD 3,0,1,5
-#define XYO_PIXEL32_VERSION_STR "3.0.1"
+#define XYO_PIXEL32_VERSION_ABCD 3,0,3,5
+#define XYO_PIXEL32_VERSION_STR "3.0.3"
 #define XYO_PIXEL32_VERSION_STR_BUILD "5"
-#define XYO_PIXEL32_VERSION_STR_DATETIME "2023-10-29 01:01:13"
-#define XYO_PIXEL32_VERSION_STR_WITH_BUILD "3.0.1.5"
+#define XYO_PIXEL32_VERSION_STR_DATETIME "2024-01-02 02:21:49"
+#define XYO_PIXEL32_VERSION_STR_WITH_BUILD "3.0.3.5"
 #else
 #define XYO_PIXEL32_VERSION_ABCD 0,0,0,0
 #define XYO_PIXEL32_VERSION_STR "0.0.0"
