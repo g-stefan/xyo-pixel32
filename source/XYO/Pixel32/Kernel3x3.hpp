@@ -14,7 +14,7 @@
 namespace XYO::Pixel32 {
 
 	class Kernel3X3 : public Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(Kernel3X3);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(Kernel3X3);
 
 		public:
 			double v[3][3];

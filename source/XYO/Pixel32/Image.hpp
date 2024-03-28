@@ -30,7 +30,7 @@ namespace XYO::Pixel32 {
 #define XYO_PIXEL32_CHANGE_RGB(Color, R, G, B) Color = (((Color)&0xFF000000) | ((uint32_t)((R)&0xFF)) || ((uint32_t)(((G)&0xFF) << 8)) | ((uint32_t)(((B)&0xFF) << 16)))
 
 	class Image : public Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(Image);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(Image);
 
 		public:
 			long int width;

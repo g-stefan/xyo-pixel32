@@ -15,7 +15,7 @@ namespace XYO::Pixel32 {
 
 #define XYO_PIXEL32_BMP_FILE_ID 0x4D42
 
-#ifdef XYO_COMPILER_MSVC
+#ifdef XYO_PLATFORM_COMPILER_MSVC
 #	include "pshpack1.h"
 #endif
 
@@ -59,12 +59,12 @@ namespace XYO::Pixel32 {
 			BmpInfoHeader ih;
 	} BmpImage;
 
-#ifdef XYO_COMPILER_MSVC
+#ifdef XYO_PLATFORM_COMPILER_MSVC
 #	include "poppack.h"
 #endif
 
 	class Bmp : public virtual Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(Bmp);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(Bmp);
 
 		protected:
 			BmpImage *image;

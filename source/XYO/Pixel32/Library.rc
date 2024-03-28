@@ -8,4 +8,4 @@
 #include <XYO/Pixel32/Copyright.rh>
 #include <XYO/Pixel32/Version.rh>
 
-XYO_APPLICATION_VERSION_INFO(XYO_PIXEL32,"xyo-pixel32.dll","XYO Pixel32")
+XYO_PLATFORM_VERSION_INFO(XYO_PIXEL32,"xyo-pixel32.dll","XYO Pixel32")

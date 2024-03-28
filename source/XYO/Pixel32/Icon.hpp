@@ -14,7 +14,7 @@
 namespace XYO::Pixel32 {
 
 	class IconItem : public virtual Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(IconItem);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(IconItem);
 
 		public:
 			inline IconItem(){};
