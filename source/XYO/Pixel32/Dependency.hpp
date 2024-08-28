@@ -22,6 +22,10 @@
 #else
 #	define XYO_PIXEL32_EXPORT XYO_PLATFORM_LIBRARY_IMPORT
 #endif
+#ifdef XYO_PIXEL32_LIBRARY
+#	undef XYO_PIXEL32_EXPORT
+#	define XYO_PIXEL32_EXPORT
+#endif
 
 // --
 

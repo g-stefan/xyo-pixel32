@@ -5,7 +5,7 @@
 		"projects": [
 			{
 				"name" : "xyo-pixel32",
-				"make" : "lib-and-dll",
+				"make" : "dll-or-lib",
 				"SPDX-License-Identifier": "MIT",
 				"sourcePath" : [
 					"XYO/Pixel32",
