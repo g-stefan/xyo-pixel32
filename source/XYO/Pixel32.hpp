@@ -1,7 +1,7 @@
 // Pixel32
-// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #ifndef XYO_PIXEL32_HPP
@@ -13,7 +13,7 @@
 #include <XYO/Pixel32/Version.hpp>
 
 #include <XYO/Pixel32/Image.hpp>
-#include <XYO/Pixel32/Bmp.hpp>
+#include <XYO/Pixel32/Bitmap.hpp>
 #include <XYO/Pixel32/Icon.hpp>
 #include <XYO/Pixel32/Kernel3x3.hpp>
 #include <XYO/Pixel32/Process.hpp>

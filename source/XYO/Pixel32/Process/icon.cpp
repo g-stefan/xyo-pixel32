@@ -1,7 +1,7 @@
 // Pixel32
-// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #include <XYO/Pixel32/Process.hpp>
@@ -28,7 +28,7 @@ namespace XYO::Pixel32::Process {
 		uint32_t bmpBitsPerPixel;
 		uint32_t bmpScanLineWidth;
 
-		BmpInfoHeader bmpIh;
+		BitmapInfoHeader bmpIh;
 		uint32_t bmpPalSize;
 
 		TDoubleEndedQueue<TPointer<IconItem>>::Node *item;
@@ -50,41 +50,41 @@ namespace XYO::Pixel32::Process {
 			iconFileOffset = 6 + iconCount * 16;
 			for (item = itemList.tail; item != NULL; item = item->back) {
 
-				bmpWidth = (item->value->bmp->getBmpImage())->ih.biWidth;
-				bmpHeight = (item->value->bmp->getBmpImage())->ih.biHeight;
+				bmpWidth = (item->value->bmp->getBitmapImage())->ih.biWidth;
+				bmpHeight = (item->value->bmp->getBitmapImage())->ih.biHeight;
 				bmpColorCount = 0;
 				bmpReserved = 0;
-				bmpPlanes = (item->value->bmp->getBmpImage())->ih.biPlanes;
-				bmpBitCount = (item->value->bmp->getBmpImage())->ih.biBitCount;
-				bmpSizeInBytes = sizeof(BmpInfoHeader);
+				bmpPlanes = (item->value->bmp->getBitmapImage())->ih.biPlanes;
+				bmpBitCount = (item->value->bmp->getBitmapImage())->ih.biBitCount;
+				bmpSizeInBytes = sizeof(BitmapInfoHeader);
 				// XOR Mask
 				bmpBitsPerPixel = bmpPlanes * bmpBitCount;
-				bmpScanLineWidth = bmpBitsPerPixel * (item->value->bmp->getBmpImage())->ih.biWidth;
+				bmpScanLineWidth = bmpBitsPerPixel * (item->value->bmp->getBitmapImage())->ih.biWidth;
 				if (bmpScanLineWidth % 32) {
 					bmpScanLineWidth += 32 - bmpScanLineWidth % 32;
 				};
 				bmpScanLineWidth /= 8;
-				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBmpImage())->ih.biHeight;
+				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBitmapImage())->ih.biHeight;
 				bmpColorCount = 0;
 				if (bmpBitsPerPixel == 1) {
-					bmpSizeInBytes += 2 * sizeof(BmpRgbQuad);
+					bmpSizeInBytes += 2 * sizeof(BitmapRBGA);
 					bmpColorCount = 2;
 				};
 				if (bmpBitsPerPixel == 4) {
-					bmpSizeInBytes += 16 * sizeof(BmpRgbQuad);
+					bmpSizeInBytes += 16 * sizeof(BitmapRBGA);
 					bmpColorCount = 16;
 				};
 				if (bmpBitsPerPixel == 8) {
-					bmpSizeInBytes += 256 * sizeof(BmpRgbQuad);
+					bmpSizeInBytes += 256 * sizeof(BitmapRBGA);
 					bmpColorCount = 0;
 				};
 				// AND Mask
-				bmpScanLineWidth = (item->value->bmp->getBmpImage())->ih.biWidth;
+				bmpScanLineWidth = (item->value->bmp->getBitmapImage())->ih.biWidth;
 				if (bmpScanLineWidth % 32) {
 					bmpScanLineWidth += 32 - bmpScanLineWidth % 32;
 				};
 				bmpScanLineWidth /= 8;
-				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBmpImage())->ih.biHeight;
+				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBitmapImage())->ih.biHeight;
 
 				fwrite(&bmpWidth, 1, sizeof(bmpWidth), out);
 				fwrite(&bmpHeight, 1, sizeof(bmpHeight), out);
@@ -99,7 +99,7 @@ namespace XYO::Pixel32::Process {
 			};
 
 			for (item = itemList.tail; item != NULL; item = item->back) {
-				memcpy(&bmpIh, &(item->value->bmp->getBmpImage())->ih, sizeof(BmpInfoHeader));
+				memcpy(&bmpIh, &(item->value->bmp->getBitmapImage())->ih, sizeof(BitmapInfoHeader));
 				bmpIh.biHeight *= 2;
 				bmpIh.biClrUsed = 0;
 				bmpIh.biSizeImage = 0;
@@ -115,9 +115,9 @@ namespace XYO::Pixel32::Process {
 				if (bmpBitsPerPixel == 8) {
 					bmpPalSize = 256;
 				};
-				fwrite(&bmpIh, 1, sizeof(BmpInfoHeader), out);
-				fwrite(((uint8_t *)(item->value->bmp->getBmpImage())) + sizeof(BmpImage), 1, item->value->bmp->getScanLine() * bmpIh.biHeight / 2 + bmpPalSize * sizeof(BmpRgbQuad), out);
-				fwrite(((uint8_t *)(item->value->mask->getBmpImage())) + sizeof(BmpImage) + sizeof(BmpRgbQuad) * 2, 1, item->value->mask->getScanLine() * bmpIh.biHeight / 2, out);
+				fwrite(&bmpIh, 1, sizeof(BitmapInfoHeader), out);
+				fwrite(((uint8_t *)(item->value->bmp->getBitmapImage())) + sizeof(BitmapImage), 1, item->value->bmp->getScanLine() * bmpIh.biHeight / 2 + bmpPalSize * sizeof(BitmapRBGA), out);
+				fwrite(((uint8_t *)(item->value->mask->getBitmapImage())) + sizeof(BitmapImage) + sizeof(BitmapRBGA) * 2, 1, item->value->mask->getScanLine() * bmpIh.biHeight / 2, out);
 			};
 
 			fclose(out);

@@ -1,7 +1,7 @@
 // Pixel32
-// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #ifndef XYO_PIXEL32_PROCESS_HPP
@@ -11,8 +11,8 @@
 #	include <XYO/Pixel32/Image.hpp>
 #endif
 
-#ifndef XYO_PIXEL32_BMP_HPP
-#	include <XYO/Pixel32/Bmp.hpp>
+#ifndef XYO_PIXEL32_BITMAP_HPP
+#	include <XYO/Pixel32/Bitmap.hpp>
 #endif
 
 #ifndef XYO_PIXEL32_ICON_HPP
@@ -100,16 +100,16 @@ namespace XYO::Pixel32::Process {
 	XYO_PIXEL32_EXPORT void drawFilledRectangle(Image *imgThis, long int sx, long int sy, long int lx, long int ly, Pixel pixel);
 	XYO_PIXEL32_EXPORT void colorRescale(Image *imgInOut);
 	//
-	XYO_PIXEL32_EXPORT TPointer<Bmp> bmp32LoadPng(const char *name);
-	XYO_PIXEL32_EXPORT bool bmp32SavePng(Bmp *bmp, const char *name);
-	XYO_PIXEL32_EXPORT bool bmp32Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp1, int level);
-	XYO_PIXEL32_EXPORT bool bmp32To24Alpha8(Bmp *inBmp32, TPointer<Bmp> &outBmp24, TPointer<Bmp> &outBmp8);
-	XYO_PIXEL32_EXPORT bool bmp32To8Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp8, TPointer<Bmp> &outBmp1, int level, bool &noFreeColorsLeft);
-	XYO_PIXEL32_EXPORT bool bmp32To4Alpha1(Bmp *inBmp32, TPointer<Bmp> &outBmp4, TPointer<Bmp> &outBmp1, int level, bool &noFreeColorsLeft);
-	XYO_PIXEL32_EXPORT TPointer<Bmp> alphaToBmp8(Image *inImage);
-	XYO_PIXEL32_EXPORT TPointer<Bmp> alphaToBmp1(Image *inImage, int level);
-	XYO_PIXEL32_EXPORT TPointer<Bmp> toBmp24(Image *inImage);
-	XYO_PIXEL32_EXPORT TPointer<Bmp> toBmp32(Image *inImage);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> bmp32LoadPng(const char *name);
+	XYO_PIXEL32_EXPORT bool bmp32SavePng(Bitmap *bmp, const char *name);
+	XYO_PIXEL32_EXPORT bool bmp32Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap1, int level);
+	XYO_PIXEL32_EXPORT bool bmp32To24Alpha8(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap24, TPointer<Bitmap> &outBitmap8);
+	XYO_PIXEL32_EXPORT bool bmp32To8Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap8, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
+	XYO_PIXEL32_EXPORT bool bmp32To4Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap4, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> alphaToBitmap8(Image *inImage);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> alphaToBitmap1(Image *inImage, int level);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> toBitmap24(Image *inImage);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> toBitmap32(Image *inImage);
 	XYO_PIXEL32_EXPORT void backgroundAlpha(Image *inOutImage, Pixel background);
 	XYO_PIXEL32_EXPORT void backgroundAlphaLevel(Image *inOutImage, Pixel background, int level);
 	XYO_PIXEL32_EXPORT bool generateIcon(TDoubleEndedQueue<TPointer<IconItem>> &itemList, const char *fileName);

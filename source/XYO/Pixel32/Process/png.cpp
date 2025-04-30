@@ -1,7 +1,7 @@
 // Pixel32
-// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #include "png.h"
@@ -144,9 +144,9 @@ namespace XYO::Pixel32::Process {
 		return retV;
 	};
 
-	TPointer<Bmp> bmp32LoadPng(const char *name) {
+	TPointer<Bitmap> bmp32LoadPng(const char *name) {
 		FILE *in;
-		TPointer<Bmp> bmp;
+		TPointer<Bitmap> bmp;
 		in = fopen(name, "rb");
 		if (in != NULL) {
 			uint8_t pngHeader[8];
@@ -185,7 +185,7 @@ namespace XYO::Pixel32::Process {
 							}
 							png_read_update_info(png, info);
 
-							bmp = Bmp::newImage32Bits(width, height);
+							bmp = Bitmap::newImage32Bits(width, height);
 							if (bmp) {
 								int y;
 								uint32_t scanLine;
@@ -232,7 +232,7 @@ namespace XYO::Pixel32::Process {
 		return bmp;
 	};
 
-	bool bmp32SavePng(Bmp *bmp, const char *name) {
+	bool bmp32SavePng(Bitmap *bmp, const char *name) {
 		FILE *out;
 		bool retV;
 
@@ -311,10 +311,10 @@ namespace XYO::Pixel32::Process {
 			TPointer<Image> img24 = resize(pngIn, 24, 24);
 			TPointer<Image> img16 = resize(pngIn, 16, 16);
 
-			TPointer<Bmp> bmp48x32 = toBmp32(img48);
-			TPointer<Bmp> bmp32x32 = toBmp32(img32);
-			TPointer<Bmp> bmp24x32 = toBmp32(img24);
-			TPointer<Bmp> bmp16x32 = toBmp32(img16);
+			TPointer<Bitmap> bmp48x32 = toBitmap32(img48);
+			TPointer<Bitmap> bmp32x32 = toBitmap32(img32);
+			TPointer<Bitmap> bmp24x32 = toBitmap32(img24);
+			TPointer<Bitmap> bmp16x32 = toBitmap32(img16);
 
 			if (useBackgroundAlpha) {
 				backgroundAlphaLevel(img48, background, level);
@@ -323,10 +323,10 @@ namespace XYO::Pixel32::Process {
 				backgroundAlphaLevel(img16, background, level);
 			};
 
-			TPointer<Bmp> bmp48x1 = alphaToBmp1(img48, level);
-			TPointer<Bmp> bmp32x1 = alphaToBmp1(img32, level);
-			TPointer<Bmp> bmp24x1 = alphaToBmp1(img24, level);
-			TPointer<Bmp> bmp16x1 = alphaToBmp1(img16, level);
+			TPointer<Bitmap> bmp48x1 = alphaToBitmap1(img48, level);
+			TPointer<Bitmap> bmp32x1 = alphaToBitmap1(img32, level);
+			TPointer<Bitmap> bmp24x1 = alphaToBitmap1(img24, level);
+			TPointer<Bitmap> bmp16x1 = alphaToBitmap1(img16, level);
 
 			TDoubleEndedQueue<TPointer<IconItem>> iconList;
 			TPointer<IconItem> iconItem;
@@ -376,10 +376,10 @@ namespace XYO::Pixel32::Process {
 			TPointer<Image> img24 = resize(pngIn24, 24, 24);
 			TPointer<Image> img16 = resize(pngIn16, 16, 16);
 
-			TPointer<Bmp> bmp48x32 = toBmp32(img48);
-			TPointer<Bmp> bmp32x32 = toBmp32(img32);
-			TPointer<Bmp> bmp24x32 = toBmp32(img24);
-			TPointer<Bmp> bmp16x32 = toBmp32(img16);
+			TPointer<Bitmap> bmp48x32 = toBitmap32(img48);
+			TPointer<Bitmap> bmp32x32 = toBitmap32(img32);
+			TPointer<Bitmap> bmp24x32 = toBitmap32(img24);
+			TPointer<Bitmap> bmp16x32 = toBitmap32(img16);
 
 			if (useBackgroundAlpha) {
 				backgroundAlphaLevel(img48, background, level);
@@ -388,10 +388,10 @@ namespace XYO::Pixel32::Process {
 				backgroundAlphaLevel(img16, background, level);
 			};
 
-			TPointer<Bmp> bmp48x1 = alphaToBmp1(img48, level);
-			TPointer<Bmp> bmp32x1 = alphaToBmp1(img32, level);
-			TPointer<Bmp> bmp24x1 = alphaToBmp1(img24, level);
-			TPointer<Bmp> bmp16x1 = alphaToBmp1(img16, level);
+			TPointer<Bitmap> bmp48x1 = alphaToBitmap1(img48, level);
+			TPointer<Bitmap> bmp32x1 = alphaToBitmap1(img32, level);
+			TPointer<Bitmap> bmp24x1 = alphaToBitmap1(img24, level);
+			TPointer<Bitmap> bmp16x1 = alphaToBitmap1(img16, level);
 
 			TDoubleEndedQueue<TPointer<IconItem>> iconList;
 			TPointer<IconItem> iconItem;
@@ -420,8 +420,8 @@ namespace XYO::Pixel32::Process {
 
 	bool pngToIcon(TDynamicArray<String> &pngFile, const char *iconFile, int level, bool useBackgroundAlpha, uint32_t background) {
 		TDynamicArray<TPointer<Image>> imgIn;
-		TDynamicArray<TPointer<Bmp>> bmpX32;
-		TDynamicArray<TPointer<Bmp>> bmpX1;
+		TDynamicArray<TPointer<Bitmap>> bmpX32;
+		TDynamicArray<TPointer<Bitmap>> bmpX1;
 
 		int k;
 		for (k = 0; k < pngFile.length(); ++k) {
@@ -439,8 +439,8 @@ namespace XYO::Pixel32::Process {
 		};
 
 		for (k = 0; k < imgIn.length(); ++k) {
-			bmpX32[k] = toBmp32(imgIn[k]);
-			bmpX1[k] = alphaToBmp1(imgIn[k], level);
+			bmpX32[k] = toBitmap32(imgIn[k]);
+			bmpX1[k] = alphaToBitmap1(imgIn[k], level);
 		};
 
 		TDoubleEndedQueue<TPointer<IconItem>> iconList;

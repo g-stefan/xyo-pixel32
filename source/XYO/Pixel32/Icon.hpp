@@ -1,14 +1,14 @@
 // Pixel32
-// Copyright (c) 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// Copyright (c) 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
-// SPDX-FileCopyrightText: 2016-2024 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-FileCopyrightText: 2016-2025 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
 #ifndef XYO_PIXEL32_ICON_HPP
 #define XYO_PIXEL32_ICON_HPP
 
-#ifndef XYO_PIXEL32_BMP_HPP
-#	include <XYO/Pixel32/Bmp.hpp>
+#ifndef XYO_PIXEL32_BITMAP_HPP
+#	include <XYO/Pixel32/Bitmap.hpp>
 #endif
 
 namespace XYO::Pixel32 {
@@ -18,8 +18,8 @@ namespace XYO::Pixel32 {
 
 		public:
 			inline IconItem(){};
-			TPointer<Bmp> bmp;
-			TPointer<Bmp> mask;
+			TPointer<Bitmap> bmp;
+			TPointer<Bitmap> mask;
 	};
 
 };
