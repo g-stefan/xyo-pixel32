@@ -25,6 +25,7 @@ namespace XYO::Pixel32 {
 
 		BitmapImage bmp_x;
 		BitmapImage *bmp_new;
+		BitmapInfoHeaderV4 ih;
 
 		bmp_x.fh.bfType = XYO_PIXEL32_BITMAP_FILE_ID;
 		bmp_x.fh.bfSize = 0;
@@ -32,22 +33,35 @@ namespace XYO::Pixel32 {
 		bmp_x.fh.bfReserved2 = 0;
 		bmp_x.fh.bfOffBits = 0;
 
-		bmp_x.ih.biSize = sizeof(BitmapInfoHeader);
-		bmp_x.ih.biWidth = lx;
-		bmp_x.ih.biHeight = ly;
-		bmp_x.ih.biPlanes = 1;
-		bmp_x.ih.biBitCount = 32;
-		bmp_x.ih.biCompression = 0;
-		bmp_x.ih.biSizeImage = 0;
-		bmp_x.ih.biXPelsPerMeter = 256;
-		bmp_x.ih.biYPelsPerMeter = 256;
-		bmp_x.ih.biClrUsed = 0;
-		bmp_x.ih.biClrImportant = 0;
+		ih.biSize = sizeof(BitmapInfoHeaderV4);
+		ih.biWidth = lx;
+		ih.biHeight = ly;
+		ih.biPlanes = 1;
+		ih.biBitCount = 32;
+		ih.biCompression = BitmapCompression::BITFIELDS;
+		ih.biSizeImage = 0;
+		ih.biXPelsPerMeter = 3778;
+		ih.biYPelsPerMeter = 3778;
+		ih.biClrUsed = 0;
+		ih.biClrImportant = 0;
+		ih.biRedMask = 0x00FF0000;
+		ih.biGreenMask = 0x0000FF00;
+		ih.biBlueMask = 0x000000FF;
+		ih.biAlphaMask = 0xFF000000;
+		ih.biCSType = BitmapLogicalColorSpace::sRGB;
+		ih.biEndpoints.ciexyzRed = {0, 0, 0};
+		ih.biEndpoints.ciexyzBlue = {0, 0, 0};
+		ih.biEndpoints.ciexyzGreen = {0, 0, 0};
+		ih.biGammaRed = 0;
+		ih.biGammaGreen = 0;
+		ih.biGammaBlue = 0;
 
+		memcpy(&bmp_x.ih, &ih, sizeof(BitmapInfoHeader));
 		calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
 		if (bmp_x.fh.bfSize >= sizeof(BitmapImage)) {
 			bmp_new = (BitmapImage *)(new uint8_t[bmp_x.fh.bfSize]);
 			memcpy(bmp_new, &bmp_x, sizeof(BitmapImage));
+			memcpy(&bmp_new->ih, &ih, sizeof(BitmapInfoHeaderV4));
 			retV->image = bmp_new;
 		};
 
@@ -73,10 +87,10 @@ namespace XYO::Pixel32 {
 		bmp_x.ih.biHeight = ly;
 		bmp_x.ih.biPlanes = 1;
 		bmp_x.ih.biBitCount = 24;
-		bmp_x.ih.biCompression = 0;
+		bmp_x.ih.biCompression = BitmapCompression::RGB;
 		bmp_x.ih.biSizeImage = 0;
-		bmp_x.ih.biXPelsPerMeter = 256;
-		bmp_x.ih.biYPelsPerMeter = 256;
+		bmp_x.ih.biXPelsPerMeter = 3778;
+		bmp_x.ih.biYPelsPerMeter = 3778;
 		bmp_x.ih.biClrUsed = 0;
 		bmp_x.ih.biClrImportant = 0;
 
@@ -110,18 +124,18 @@ namespace XYO::Pixel32 {
 		bmp_x.ih.biHeight = ly;
 		bmp_x.ih.biPlanes = 1;
 		bmp_x.ih.biBitCount = 8;
-		bmp_x.ih.biCompression = 0;
+		bmp_x.ih.biCompression = BitmapCompression::RGB;
 		bmp_x.ih.biSizeImage = 0;
-		bmp_x.ih.biXPelsPerMeter = 256;
-		bmp_x.ih.biYPelsPerMeter = 256;
+		bmp_x.ih.biXPelsPerMeter = 3778;
+		bmp_x.ih.biYPelsPerMeter = 3778;
 		bmp_x.ih.biClrUsed = 0;
 		bmp_x.ih.biClrImportant = 0;
 
 		calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRBGA) * 256))) {
+		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRGBA) * 256))) {
 			bmp_new = (BitmapImage *)(new uint8_t[bmp_x.fh.bfSize]);
 			memcpy(bmp_new, &bmp_x, sizeof(BitmapImage));
-			memset(bmp_new + 1, 0, sizeof(BitmapRBGA) * 256);
+			memset(bmp_new + 1, 0, sizeof(BitmapRGBA) * 256);
 			retV->image = bmp_new;
 		};
 
@@ -148,18 +162,18 @@ namespace XYO::Pixel32 {
 		bmp_x.ih.biHeight = ly;
 		bmp_x.ih.biPlanes = 1;
 		bmp_x.ih.biBitCount = 4;
-		bmp_x.ih.biCompression = 0;
+		bmp_x.ih.biCompression = BitmapCompression::RGB;
 		bmp_x.ih.biSizeImage = 0;
-		bmp_x.ih.biXPelsPerMeter = 256;
-		bmp_x.ih.biYPelsPerMeter = 256;
+		bmp_x.ih.biXPelsPerMeter = 3778;
+		bmp_x.ih.biYPelsPerMeter = 3778;
 		bmp_x.ih.biClrUsed = 0;
 		bmp_x.ih.biClrImportant = 0;
 
 		calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRBGA) * 16))) {
+		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRGBA) * 16))) {
 			bmp_new = (BitmapImage *)(new uint8_t[bmp_x.fh.bfSize]);
 			memcpy(bmp_new, &bmp_x, sizeof(BitmapImage));
-			memset(bmp_new + 1, 0, sizeof(BitmapRBGA) * 16);
+			memset(bmp_new + 1, 0, sizeof(BitmapRGBA) * 16);
 			retV->image = bmp_new;
 		};
 
@@ -186,25 +200,25 @@ namespace XYO::Pixel32 {
 		bmp_x.ih.biHeight = ly;
 		bmp_x.ih.biPlanes = 1;
 		bmp_x.ih.biBitCount = 1;
-		bmp_x.ih.biCompression = 0;
+		bmp_x.ih.biCompression = BitmapCompression::RGB;
 		bmp_x.ih.biSizeImage = 0;
-		bmp_x.ih.biXPelsPerMeter = 256;
-		bmp_x.ih.biYPelsPerMeter = 256;
+		bmp_x.ih.biXPelsPerMeter = 3778;
+		bmp_x.ih.biYPelsPerMeter = 3778;
 		bmp_x.ih.biClrUsed = 0;
 		bmp_x.ih.biClrImportant = 0;
 
 		calculateImageSizeNoCompression(bmp_x.fh, bmp_x.ih);
-		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRBGA) * 2))) {
+		if (bmp_x.fh.bfSize >= (sizeof(BitmapImage) + (sizeof(BitmapRGBA) * 2))) {
 			bmp_new = (BitmapImage *)(new uint8_t[bmp_x.fh.bfSize]);
 			memcpy(bmp_new, &bmp_x, sizeof(BitmapImage));
-			memset(bmp_new + 1, 0, sizeof(BitmapRBGA) * 2);
+			memset(bmp_new + 1, 0, sizeof(BitmapRGBA) * 2);
 			retV->image = bmp_new;
 		};
 
 		return retV;
 	};
 
-	TPointer<Bitmap> Bitmap::loadImage(char *name) {
+	TPointer<Bitmap> Bitmap::load(char *name) {
 		TPointer<Bitmap> retV;
 		File in;
 
@@ -216,6 +230,7 @@ namespace XYO::Pixel32 {
 
 		if (in.openRead(name)) {
 			in.read(&bmp_x, sizeof(BitmapImage));
+
 			if ((bmp_x.ih.biBitCount == 0) && (bmp_x.ih.biPlanes != 0)) {
 				bmp_x.ih.biBitCount = bmp_x.ih.biPlanes;
 				bmp_x.ih.biPlanes = 1;
@@ -246,7 +261,7 @@ namespace XYO::Pixel32 {
 		return retV;
 	};
 
-	bool Bitmap::saveImage(char *name) {
+	bool Bitmap::save(char *name) {
 		File out;
 
 		uint32_t b_sz;
@@ -286,50 +301,50 @@ namespace XYO::Pixel32 {
 		bmp_bits = (bih.biPlanes) * (bih.biBitCount);
 		bmp_palette_size = 0;
 		if (bih.biBitCount * bih.biPlanes == 1) {
-			bmp_palette_size = 2 * sizeof(BitmapRBGA);
+			bmp_palette_size = 2 * sizeof(BitmapRGBA);
 		}
 		if (bih.biBitCount * bih.biPlanes == 4) {
-			bmp_palette_size = 16 * sizeof(BitmapRBGA);
+			bmp_palette_size = 16 * sizeof(BitmapRGBA);
 		}
 		if (bih.biBitCount * bih.biPlanes == 8) {
-			bmp_palette_size = 256 * sizeof(BitmapRBGA);
+			bmp_palette_size = 256 * sizeof(BitmapRGBA);
 		}
 
-		bfh.bfOffBits = sizeof(BitmapFileHeader) + sizeof(BitmapInfoHeader) + bmp_palette_size;
+		bfh.bfOffBits = sizeof(BitmapFileHeader) + bih.biSize + bmp_palette_size;
 		bfh.bfSize = bfh.bfOffBits + bmp_scan_line * (bih.biHeight);
 
-		bih.biSizeImage = sizeof(BitmapInfoHeader) + bmp_palette_size + bmp_scan_line * (bih.biHeight);
+		bih.biSizeImage = bih.biSize + bmp_palette_size + bmp_scan_line * (bih.biHeight);
 	};
 
-	BitmapRBGA *Bitmap::getRow32Bits(uint32_t y, uint32_t scanLine) {
-		return (BitmapRBGA *)(((uint8_t *)(image + 1)) + (image->ih.biHeight - y - 1) * scanLine);
+	BitmapRGBA *Bitmap::getRow32Bits(uint32_t y, uint32_t scanLine) {
+		return (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + (image->ih.biHeight - y - 1) * scanLine);
 	};
 
 	uint32_t Bitmap::getScanLine() {
 		return scanLine(image->ih);
 	};
 
-	void Bitmap::setPixel32(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::setPixel32(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint32_t scan_line;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBGA) + y * scan_line);
+		pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + x * sizeof(BitmapRGBA) + y * scan_line);
 		pixels->rgbBlue = c.rgbBlue;
 		pixels->rgbRed = c.rgbRed;
 		pixels->rgbGreen = c.rgbGreen;
 		pixels->rgbAlpha = c.rgbAlpha;
 	};
 
-	void Bitmap::setPixel24(uint32_t x, uint32_t y, BitmapRBG &c) {
+	void Bitmap::setPixel24(uint32_t x, uint32_t y, BitmapRGB &c) {
 		uint32_t scan_line;
-		BitmapRBG *pixels;
+		BitmapRGB *pixels;
 
 		scan_line = scanLine(image->ih);
-		pixels = (BitmapRBG *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBG) + y * scan_line);
-		pixels->rgbtBlue = c.rgbtBlue;
-		pixels->rgbtRed = c.rgbtRed;
-		pixels->rgbtGreen = c.rgbtGreen;
+		pixels = (BitmapRGB *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRGB) + y * scan_line);
+		pixels->rgbBlue = c.rgbBlue;
+		pixels->rgbRed = c.rgbRed;
+		pixels->rgbGreen = c.rgbGreen;
 	};
 
 	void Bitmap::setPixel8(uint32_t x, uint32_t y, uint8_t &c) {
@@ -337,7 +352,7 @@ namespace XYO::Pixel32 {
 		uint32_t scan_line;
 		uint8_t *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + x + y * scan_line + 256 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + x + y * scan_line + 256 * sizeof(BitmapRGBA));
 		*pixels = c;
 	};
 
@@ -345,12 +360,12 @@ namespace XYO::Pixel32 {
 		uint32_t scan_line;
 		uint8_t *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 1) + y * scan_line + 16 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 1) + y * scan_line + 16 * sizeof(BitmapRGBA));
 
 		if (x & 0x0001) {
-			*pixels = ((*pixels) & 0xF0) | ((c)&0x0F);
+			*pixels = ((*pixels) & 0xF0) | ((c) & 0x0F);
 		} else {
-			*pixels = ((*pixels) & 0x0F) | (((c)&0x0F) << 4);
+			*pixels = ((*pixels) & 0x0F) | (((c) & 0x0F) << 4);
 		};
 	};
 
@@ -360,7 +375,7 @@ namespace XYO::Pixel32 {
 		uint8_t mask;
 		uint8_t c2;
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 3) + y * scan_line + 2 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 3) + y * scan_line + 2 * sizeof(BitmapRGBA));
 		if (c) {
 			c2 = 0xFF;
 		} else {
@@ -371,27 +386,27 @@ namespace XYO::Pixel32 {
 		*pixels = (*pixels & (~mask)) | ((c2 & mask));
 	};
 
-	void Bitmap::getPixel32(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::getPixel32(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint32_t scan_line;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBGA) + y * scan_line);
+		pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + x * sizeof(BitmapRGBA) + y * scan_line);
 		c.rgbBlue = pixels->rgbBlue;
 		c.rgbRed = pixels->rgbRed;
 		c.rgbGreen = pixels->rgbGreen;
 		c.rgbAlpha = pixels->rgbAlpha;
 	};
 
-	void Bitmap::getPixel24(uint32_t x, uint32_t y, BitmapRBG &c) {
+	void Bitmap::getPixel24(uint32_t x, uint32_t y, BitmapRGB &c) {
 
 		uint32_t scan_line;
-		BitmapRBG *pixels;
+		BitmapRGB *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (BitmapRBG *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBG) + y * scan_line);
-		c.rgbtBlue = pixels->rgbtBlue;
-		c.rgbtRed = pixels->rgbtRed;
-		c.rgbtGreen = pixels->rgbtGreen;
+		pixels = (BitmapRGB *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRGB) + y * scan_line);
+		c.rgbBlue = pixels->rgbBlue;
+		c.rgbRed = pixels->rgbRed;
+		c.rgbGreen = pixels->rgbGreen;
 	};
 
 	void Bitmap::getPixel8(uint32_t x, uint32_t y, uint8_t &c) {
@@ -399,7 +414,7 @@ namespace XYO::Pixel32 {
 		uint32_t scan_line;
 		uint8_t *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + x + y * scan_line + 256 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + x + y * scan_line + 256 * sizeof(BitmapRGBA));
 		c = *pixels;
 	};
 
@@ -409,7 +424,7 @@ namespace XYO::Pixel32 {
 		uint8_t *pixels;
 
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 1) + y * scan_line + 16 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x >> 1) + y * scan_line + 16 * sizeof(BitmapRGBA));
 
 		if (x & 0x0001) {
 			c = (*pixels) & 0x0F;
@@ -428,7 +443,7 @@ namespace XYO::Pixel32 {
 		uint8_t c2;
 
 		scan_line = scanLine(image->ih);
-		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x / 8) + y * scan_line + 2 * sizeof(BitmapRBGA));
+		pixels = (uint8_t *)(((uint8_t *)(image + 1)) + (x / 8) + y * scan_line + 2 * sizeof(BitmapRGBA));
 		mask = (uint8_t)(0x01 << (7 - x & 0x07));
 		c2 = (*pixels & mask);
 		if (c2) {
@@ -438,37 +453,37 @@ namespace XYO::Pixel32 {
 		}
 	};
 
-	void Bitmap::getPixelPal8(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::getPixelPal8(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint8_t c2;
 		getPixel8(x, y, c2);
-		memcpy(&c, &((BitmapRBGA *)(image + 1))[c2], sizeof(BitmapRBGA));
+		memcpy(&c, &((BitmapRGBA *)(image + 1))[c2], sizeof(BitmapRGBA));
 	};
 
-	void Bitmap::getPixelPal4(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::getPixelPal4(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint8_t c2;
 
 		getPixel4(x, y, c2);
 
-		memcpy(&c, &((BitmapRBGA *)(image + 1))[c2], sizeof(BitmapRBGA));
+		memcpy(&c, &((BitmapRGBA *)(image + 1))[c2], sizeof(BitmapRGBA));
 	};
 
-	void Bitmap::getPixelPal1(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::getPixelPal1(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint8_t c2;
 
 		getPixel1(x, y, c2);
-		memcpy(&c, &((BitmapRBGA *)(image + 1))[c2], sizeof(BitmapRBGA));
+		memcpy(&c, &((BitmapRGBA *)(image + 1))[c2], sizeof(BitmapRGBA));
 	};
 
-	void Bitmap::setPixelPal8(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::setPixelPal8(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint16_t index;
 		uint8_t c2;
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		for (index = 0; index < 256; index++) {
 			if ((c.rgbBlue == palette[index].rgbBlue) && (c.rgbRed == palette[index].rgbRed) && (c.rgbGreen == palette[index].rgbGreen) && (c.rgbAlpha == palette[index].rgbAlpha)) {
 				break;
@@ -478,13 +493,13 @@ namespace XYO::Pixel32 {
 		setPixel8(x, y, c2);
 	};
 
-	void Bitmap::setPixelPal4(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::setPixelPal4(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint16_t index;
 		uint8_t c2;
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		for (index = 0; index < 16; index++) {
 			if ((c.rgbBlue == palette[index].rgbBlue) && (c.rgbRed == palette[index].rgbRed) && (c.rgbGreen == palette[index].rgbGreen) && (c.rgbAlpha == palette[index].rgbAlpha)) {
 				break;
@@ -495,13 +510,13 @@ namespace XYO::Pixel32 {
 		setPixel4(x, y, c2);
 	};
 
-	void Bitmap::setPixelPal1(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::setPixelPal1(uint32_t x, uint32_t y, BitmapRGBA &c) {
 
 		uint16_t index;
 		uint8_t c2;
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		for (index = 0; index < 2; index++) {
 			if ((c.rgbBlue == palette[index].rgbBlue) && (c.rgbRed == palette[index].rgbRed) && (c.rgbGreen == palette[index].rgbGreen) && (c.rgbAlpha == palette[index].rgbAlpha)) {
 				break;
@@ -525,36 +540,36 @@ namespace XYO::Pixel32 {
 		return 0;
 	};
 
-	void Bitmap::getPaletteIndex(uint8_t index, BitmapRBGA &c) {
+	void Bitmap::getPaletteIndex(uint8_t index, BitmapRGBA &c) {
 
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		c.rgbBlue = palette[index].rgbBlue;
 		c.rgbRed = palette[index].rgbRed;
 		c.rgbGreen = palette[index].rgbGreen;
 		c.rgbAlpha = palette[index].rgbAlpha;
 	};
 
-	void Bitmap::setPaletteIndex(uint8_t index, BitmapRBGA &c) {
+	void Bitmap::setPaletteIndex(uint8_t index, BitmapRGBA &c) {
 
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		palette[index].rgbBlue = c.rgbBlue;
 		palette[index].rgbRed = c.rgbRed;
 		palette[index].rgbGreen = c.rgbGreen;
 		palette[index].rgbAlpha = c.rgbAlpha;
 	};
 
-	bool Bitmap::getPaletteColor(uint8_t &index, BitmapRBGA &c) {
+	bool Bitmap::getPaletteColor(uint8_t &index, BitmapRGBA &c) {
 
 		uint16_t index2;
 		uint16_t index2p;
 
-		BitmapRBGA *palette;
+		BitmapRGBA *palette;
 
-		palette = (BitmapRBGA *)(image + 1);
+		palette = (BitmapRGBA *)(image + 1);
 		index2p = getPaletteSize();
 		for (index2 = 0; index2 < index2p; index2++) {
 			if ((c.rgbBlue == palette[index2].rgbBlue) && (c.rgbRed == palette[index2].rgbRed) && (c.rgbGreen == palette[index2].rgbGreen) && (c.rgbAlpha == palette[index2].rgbAlpha)) {
@@ -591,9 +606,9 @@ namespace XYO::Pixel32 {
 		return false;
 	};
 
-	void Bitmap::getPixel32s(long int x, long int y, BitmapRBGA &c) {
+	void Bitmap::getPixel32s(long int x, long int y, BitmapRGBA &c) {
 		uint32_t scanLine_;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 
 		if (x < 0) {
 			c.rgbBlue = 0;
@@ -628,16 +643,16 @@ namespace XYO::Pixel32 {
 		};
 
 		scanLine_ = scanLine(image->ih);
-		pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBGA) + y * scanLine_);
+		pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + x * sizeof(BitmapRGBA) + y * scanLine_);
 		c.rgbBlue = pixels->rgbBlue;
 		c.rgbRed = pixels->rgbRed;
 		c.rgbGreen = pixels->rgbGreen;
 		c.rgbAlpha = pixels->rgbAlpha;
 	};
 
-	void Bitmap::setPixel32s(long int x, long int y, BitmapRBGA &c) {
+	void Bitmap::setPixel32s(long int x, long int y, BitmapRGBA &c) {
 		uint32_t scanLine_;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 
 		if (x < 0) {
 			return;
@@ -653,25 +668,25 @@ namespace XYO::Pixel32 {
 		}
 
 		scanLine_ = scanLine(image->ih);
-		pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBGA) + y * scanLine_);
+		pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + x * sizeof(BitmapRGBA) + y * scanLine_);
 		pixels->rgbBlue = c.rgbBlue;
 		pixels->rgbRed = c.rgbRed;
 		pixels->rgbGreen = c.rgbGreen;
 		pixels->rgbAlpha = c.rgbAlpha;
 	};
 
-	void Bitmap::getPixel24X(uint32_t x, uint32_t y, BitmapRBGA &c) {
+	void Bitmap::getPixel24X(uint32_t x, uint32_t y, BitmapRGBA &c) {
 		uint32_t scan_line;
-		BitmapRBG *pixels;
+		BitmapRGB *pixels;
 		scan_line = scanLine(image->ih);
-		pixels = (BitmapRBG *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRBG) + y * scan_line);
-		c.rgbBlue = pixels->rgbtBlue;
-		c.rgbRed = pixels->rgbtRed;
-		c.rgbGreen = pixels->rgbtGreen;
+		pixels = (BitmapRGB *)(((uint8_t *)(image + 1)) + x * sizeof(BitmapRGB) + y * scan_line);
+		c.rgbBlue = pixels->rgbBlue;
+		c.rgbRed = pixels->rgbRed;
+		c.rgbGreen = pixels->rgbGreen;
 		c.rgbAlpha = 0;
 	};
 
-	void Bitmap::getPixel32X(uint32_t x, uint32_t y, BitmapRBGA &retV) {
+	void Bitmap::getPixel32X(uint32_t x, uint32_t y, BitmapRGBA &retV) {
 		switch (getPixelWidth()) {
 		case 1:
 			getPixelPal1(x, y, retV);
@@ -700,7 +715,7 @@ namespace XYO::Pixel32 {
 			return this;
 		};
 		TPointer<Bitmap> retV = newImage32Bits(image->ih.biWidth, image->ih.biHeight);
-		BitmapRBGA rgba;
+		BitmapRGBA rgba;
 		uint32_t x;
 		uint32_t y;
 		for (x = 0; x < image->ih.biWidth; ++x) {
@@ -719,19 +734,18 @@ namespace XYO::Pixel32 {
 		return retV;
 	};
 
-	void Bitmap::swapRBInvertA32() {
+	void Bitmap::swapRB32() {
 		uint32_t y;
 		uint32_t x;
 		uint32_t scan_line;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 		scan_line = scanLine(image->ih);
 		for (y = 0; y < image->ih.biHeight; ++y) {
-			pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + y * scan_line);
+			pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + y * scan_line);
 			for (x = 0; x < image->ih.biWidth; ++x) {
 				pixels[x].rgbBlue ^= pixels[x].rgbRed;
 				pixels[x].rgbRed ^= pixels[x].rgbBlue;
 				pixels[x].rgbBlue ^= pixels[x].rgbRed;
-				pixels[x].rgbAlpha ^= 255;
 			};
 		};
 	};
@@ -740,10 +754,10 @@ namespace XYO::Pixel32 {
 		uint32_t y;
 		uint32_t x;
 		uint32_t scan_line;
-		BitmapRBGA *pixels;
+		BitmapRGBA *pixels;
 		scan_line = scanLine(image->ih);
 		for (y = 0; y < image->ih.biHeight; ++y) {
-			pixels = (BitmapRBGA *)(((uint8_t *)(image + 1)) + y * scan_line);
+			pixels = (BitmapRGBA *)(((uint8_t *)(image)) + image->fh.bfOffBits + y * scan_line);
 			for (x = 0; x < image->ih.biWidth; ++x) {
 				pixels[x].rgbAlpha = alpha;
 			};

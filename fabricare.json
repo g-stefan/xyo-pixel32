@@ -27,6 +27,15 @@
 						"libz"
 					]
 				}
+			},
+			{
+				"name" : "test.01",
+				"make" : "exe",
+				"category" : "test",
+				"SPDX-License-Identifier": "Unlicense",
+				"dependency" : [
+					"xyo-pixel32"
+				]
 			}
 		]
 	}

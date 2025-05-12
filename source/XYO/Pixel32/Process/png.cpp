@@ -11,12 +11,12 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
-	static void PNGAPI pngUsrError(png_structp png, png_const_charp sz) {
+	static void PNGAPI pngError(png_structp png, png_const_charp sz) {
 		png;
 		sz;
 	};
 
-	static void PNGAPI pngUsrWarning(png_structp png, png_const_charp sz) {
+	static void PNGAPI pngWarning(png_structp png, png_const_charp sz) {
 		png;
 		sz;
 	};
@@ -32,7 +32,7 @@ namespace XYO::Pixel32::Process {
 					png_structp png;
 					png_infop info;
 
-					png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, pngUsrError, pngUsrWarning);
+					png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, pngError, pngWarning);
 					if (png != NULL) {
 						info = png_create_info_struct(png);
 						if (info != NULL) {
@@ -108,7 +108,7 @@ namespace XYO::Pixel32::Process {
 			png_structp png;
 			png_infop info;
 
-			png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, pngUsrError, pngUsrWarning);
+			png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, pngError, pngWarning);
 			if (png != NULL) {
 				info = png_create_info_struct(png);
 				if (info != NULL) {
@@ -144,7 +144,7 @@ namespace XYO::Pixel32::Process {
 		return retV;
 	};
 
-	TPointer<Bitmap> bmp32LoadPng(const char *name) {
+	TPointer<Bitmap> bitmap32LoadPNG(const char *name) {
 		FILE *in;
 		TPointer<Bitmap> bmp;
 		in = fopen(name, "rb");
@@ -155,7 +155,7 @@ namespace XYO::Pixel32::Process {
 					png_structp png;
 					png_infop info;
 
-					png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, pngUsrError, pngUsrWarning);
+					png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, pngError, pngWarning);
 					if (png != NULL) {
 						info = png_create_info_struct(png);
 						if (info != NULL) {
@@ -216,7 +216,7 @@ namespace XYO::Pixel32::Process {
 
 								delete[] rowPointers;
 
-								bmp->swapRBInvertA32();
+								bmp->swapRB32();
 							};
 
 							png_destroy_read_struct(&png, &info, NULL);
@@ -232,7 +232,7 @@ namespace XYO::Pixel32::Process {
 		return bmp;
 	};
 
-	bool bmp32SavePng(Bitmap *bmp, const char *name) {
+	bool bitmap32SavePNG(Bitmap *bmp, const char *name) {
 		FILE *out;
 		bool retV;
 
@@ -246,7 +246,7 @@ namespace XYO::Pixel32::Process {
 			png_structp png;
 			png_infop info;
 
-			png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, pngUsrError, pngUsrWarning);
+			png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, pngError, pngWarning);
 			if (png != NULL) {
 				info = png_create_info_struct(png);
 				if (info != NULL) {
@@ -270,7 +270,7 @@ namespace XYO::Pixel32::Process {
 
 					png_write_info(png, info);
 
-					bmp->swapRBInvertA32();
+					bmp->swapRB32();
 
 					int yLn = bmp->getHeight();
 					rowPointers = new png_bytep[yLn];
@@ -282,7 +282,7 @@ namespace XYO::Pixel32::Process {
 					png_write_image(png, rowPointers);
 					png_write_end(png, info);
 
-					bmp->swapRBInvertA32();
+					bmp->swapRB32();
 
 					delete[] rowPointers;
 					retV = true;
@@ -312,7 +312,7 @@ namespace XYO::Pixel32::Process {
 			TPointer<Image> img16 = resize(pngIn, 16, 16);
 
 			TPointer<Bitmap> bmp48x32 = toBitmap32(img48);
-			TPointer<Bitmap> bmp32x32 = toBitmap32(img32);
+			TPointer<Bitmap> bitmap32x32 = toBitmap32(img32);
 			TPointer<Bitmap> bmp24x32 = toBitmap32(img24);
 			TPointer<Bitmap> bmp16x32 = toBitmap32(img16);
 
@@ -324,7 +324,7 @@ namespace XYO::Pixel32::Process {
 			};
 
 			TPointer<Bitmap> bmp48x1 = alphaToBitmap1(img48, level);
-			TPointer<Bitmap> bmp32x1 = alphaToBitmap1(img32, level);
+			TPointer<Bitmap> bitmap32x1 = alphaToBitmap1(img32, level);
 			TPointer<Bitmap> bmp24x1 = alphaToBitmap1(img24, level);
 			TPointer<Bitmap> bmp16x1 = alphaToBitmap1(img16, level);
 
@@ -340,8 +340,8 @@ namespace XYO::Pixel32::Process {
 			iconItem->mask = bmp24x1;
 			iconList.push(iconItem);
 			iconItem.newMemory();
-			iconItem->bmp = bmp32x32;
-			iconItem->mask = bmp32x1;
+			iconItem->bmp = bitmap32x32;
+			iconItem->mask = bitmap32x1;
 			iconList.push(iconItem);
 			iconItem.newMemory();
 			iconItem->bmp = bmp48x32;
@@ -377,7 +377,7 @@ namespace XYO::Pixel32::Process {
 			TPointer<Image> img16 = resize(pngIn16, 16, 16);
 
 			TPointer<Bitmap> bmp48x32 = toBitmap32(img48);
-			TPointer<Bitmap> bmp32x32 = toBitmap32(img32);
+			TPointer<Bitmap> bitmap32x32 = toBitmap32(img32);
 			TPointer<Bitmap> bmp24x32 = toBitmap32(img24);
 			TPointer<Bitmap> bmp16x32 = toBitmap32(img16);
 
@@ -389,7 +389,7 @@ namespace XYO::Pixel32::Process {
 			};
 
 			TPointer<Bitmap> bmp48x1 = alphaToBitmap1(img48, level);
-			TPointer<Bitmap> bmp32x1 = alphaToBitmap1(img32, level);
+			TPointer<Bitmap> bitmap32x1 = alphaToBitmap1(img32, level);
 			TPointer<Bitmap> bmp24x1 = alphaToBitmap1(img24, level);
 			TPointer<Bitmap> bmp16x1 = alphaToBitmap1(img16, level);
 
@@ -405,8 +405,8 @@ namespace XYO::Pixel32::Process {
 			iconItem->mask = bmp24x1;
 			iconList.push(iconItem);
 			iconItem.newMemory();
-			iconItem->bmp = bmp32x32;
-			iconItem->mask = bmp32x1;
+			iconItem->bmp = bitmap32x32;
+			iconItem->mask = bitmap32x1;
 			iconList.push(iconItem);
 			iconItem.newMemory();
 			iconItem->bmp = bmp48x32;

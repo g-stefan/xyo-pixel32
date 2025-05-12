@@ -100,12 +100,13 @@ namespace XYO::Pixel32::Process {
 	XYO_PIXEL32_EXPORT void drawFilledRectangle(Image *imgThis, long int sx, long int sy, long int lx, long int ly, Pixel pixel);
 	XYO_PIXEL32_EXPORT void colorRescale(Image *imgInOut);
 	//
-	XYO_PIXEL32_EXPORT TPointer<Bitmap> bmp32LoadPng(const char *name);
-	XYO_PIXEL32_EXPORT bool bmp32SavePng(Bitmap *bmp, const char *name);
-	XYO_PIXEL32_EXPORT bool bmp32Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap1, int level);
-	XYO_PIXEL32_EXPORT bool bmp32To24Alpha8(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap24, TPointer<Bitmap> &outBitmap8);
-	XYO_PIXEL32_EXPORT bool bmp32To8Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap8, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
-	XYO_PIXEL32_EXPORT bool bmp32To4Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap4, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
+	XYO_PIXEL32_EXPORT TPointer<Image> imageFromBitmap(Bitmap *bmp);
+	XYO_PIXEL32_EXPORT TPointer<Bitmap> bitmap32LoadPNG(const char *name);
+	XYO_PIXEL32_EXPORT bool bitmap32SavePNG(Bitmap *bmp, const char *name);
+	XYO_PIXEL32_EXPORT bool bitmap32Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap1, int level);
+	XYO_PIXEL32_EXPORT bool bitmap32To24Alpha8(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap24, TPointer<Bitmap> &outBitmap8);
+	XYO_PIXEL32_EXPORT bool bitmap32To8Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap8, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
+	XYO_PIXEL32_EXPORT bool bitmap32To4Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap4, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft);
 	XYO_PIXEL32_EXPORT TPointer<Bitmap> alphaToBitmap8(Image *inImage);
 	XYO_PIXEL32_EXPORT TPointer<Bitmap> alphaToBitmap1(Image *inImage, int level);
 	XYO_PIXEL32_EXPORT TPointer<Bitmap> toBitmap24(Image *inImage);

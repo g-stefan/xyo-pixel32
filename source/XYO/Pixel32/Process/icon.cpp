@@ -67,15 +67,15 @@ namespace XYO::Pixel32::Process {
 				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBitmapImage())->ih.biHeight;
 				bmpColorCount = 0;
 				if (bmpBitsPerPixel == 1) {
-					bmpSizeInBytes += 2 * sizeof(BitmapRBGA);
+					bmpSizeInBytes += 2 * sizeof(BitmapRGBA);
 					bmpColorCount = 2;
 				};
 				if (bmpBitsPerPixel == 4) {
-					bmpSizeInBytes += 16 * sizeof(BitmapRBGA);
+					bmpSizeInBytes += 16 * sizeof(BitmapRGBA);
 					bmpColorCount = 16;
 				};
 				if (bmpBitsPerPixel == 8) {
-					bmpSizeInBytes += 256 * sizeof(BitmapRBGA);
+					bmpSizeInBytes += 256 * sizeof(BitmapRGBA);
 					bmpColorCount = 0;
 				};
 				// AND Mask
@@ -116,8 +116,8 @@ namespace XYO::Pixel32::Process {
 					bmpPalSize = 256;
 				};
 				fwrite(&bmpIh, 1, sizeof(BitmapInfoHeader), out);
-				fwrite(((uint8_t *)(item->value->bmp->getBitmapImage())) + sizeof(BitmapImage), 1, item->value->bmp->getScanLine() * bmpIh.biHeight / 2 + bmpPalSize * sizeof(BitmapRBGA), out);
-				fwrite(((uint8_t *)(item->value->mask->getBitmapImage())) + sizeof(BitmapImage) + sizeof(BitmapRBGA) * 2, 1, item->value->mask->getScanLine() * bmpIh.biHeight / 2, out);
+				fwrite(((uint8_t *)(item->value->bmp->getBitmapImage())) + sizeof(BitmapImage), 1, item->value->bmp->getScanLine() * bmpIh.biHeight / 2 + bmpPalSize * sizeof(BitmapRGBA), out);
+				fwrite(((uint8_t *)(item->value->mask->getBitmapImage())) + sizeof(BitmapImage) + sizeof(BitmapRGBA) * 2, 1, item->value->mask->getScanLine() * bmpIh.biHeight / 2, out);
 			};
 
 			fclose(out);

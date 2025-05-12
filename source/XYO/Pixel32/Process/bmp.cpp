@@ -10,7 +10,7 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
-	bool bmp32Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap1, int level) {
+	bool bitmap32Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap1, int level) {
 		if (inBitmap32->getPixelWidth() == 32) {
 			uint32_t lx, ly;
 
@@ -20,7 +20,7 @@ namespace XYO::Pixel32::Process {
 			outBitmap1 = Bitmap::newImage1Bit(lx, ly);
 
 			uint32_t kx, ky;
-			BitmapRBGA c32;
+			BitmapRGBA c32;
 			uint8_t c8;
 
 			c32.rgbBlue = 0;
@@ -52,7 +52,7 @@ namespace XYO::Pixel32::Process {
 		return false;
 	};
 
-	bool bmp32To24Alpha8(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap24, TPointer<Bitmap> &outBitmap8) {
+	bool bitmap32To24Alpha8(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap24, TPointer<Bitmap> &outBitmap8) {
 		if (inBitmap32->getPixelWidth() == 32) {
 			uint32_t lx, ly;
 
@@ -63,16 +63,16 @@ namespace XYO::Pixel32::Process {
 			outBitmap8 = Bitmap::newImage8Bits(lx, ly);
 
 			uint32_t kx, ky;
-			BitmapRBGA c32;
-			BitmapRBG c24;
+			BitmapRGBA c32;
+			BitmapRGB c24;
 			uint8_t c8;
 
 			for (ky = 0; ky < ly; ky++) {
 				for (kx = 0; kx < lx; kx++) {
 					inBitmap32->getPixel32(kx, ky, c32);
-					c24.rgbtBlue = c32.rgbBlue;
-					c24.rgbtGreen = c32.rgbGreen;
-					c24.rgbtRed = c32.rgbRed;
+					c24.rgbBlue = c32.rgbBlue;
+					c24.rgbGreen = c32.rgbGreen;
+					c24.rgbRed = c32.rgbRed;
 					outBitmap24->setPixel24(kx, ky, c24);
 				};
 			};
@@ -98,7 +98,7 @@ namespace XYO::Pixel32::Process {
 		return false;
 	};
 
-	bool bmp32To8Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap8, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft) {
+	bool bitmap32To8Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap8, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft) {
 		noFreeColorsLeft = false;
 
 		if (inBitmap32->getPixelWidth() == 32) {
@@ -110,8 +110,8 @@ namespace XYO::Pixel32::Process {
 			outBitmap8 = Bitmap::newImage8Bits(lx, ly);
 
 			uint32_t kx, ky;
-			BitmapRBGA c32;
-			BitmapRBGA cx32;
+			BitmapRGBA c32;
+			BitmapRGBA cx32;
 
 			uint8_t c8;
 			int index, k;
@@ -144,7 +144,7 @@ namespace XYO::Pixel32::Process {
 				};
 			};
 
-			if (bmp32Alpha1(inBitmap32, outBitmap1, level)) {
+			if (bitmap32Alpha1(inBitmap32, outBitmap1, level)) {
 				return true;
 			};
 		};
@@ -152,7 +152,7 @@ namespace XYO::Pixel32::Process {
 		return false;
 	};
 
-	bool bmp32To4Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap4, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft) {
+	bool bitmap32To4Alpha1(Bitmap *inBitmap32, TPointer<Bitmap> &outBitmap4, TPointer<Bitmap> &outBitmap1, int level, bool &noFreeColorsLeft) {
 		noFreeColorsLeft = false;
 
 		if (inBitmap32->getPixelWidth() == 32) {
@@ -164,8 +164,8 @@ namespace XYO::Pixel32::Process {
 			outBitmap4 = Bitmap::newImage4Bits(lx, ly);
 
 			uint32_t kx, ky;
-			BitmapRBGA c32;
-			BitmapRBGA cx32;
+			BitmapRGBA c32;
+			BitmapRGBA cx32;
 
 			uint8_t c4;
 			int index, k;
@@ -199,7 +199,7 @@ namespace XYO::Pixel32::Process {
 				};
 			};
 
-			if (bmp32Alpha1(inBitmap32, outBitmap1, level)) {
+			if (bitmap32Alpha1(inBitmap32, outBitmap1, level)) {
 				return true;
 			};
 		};
@@ -217,7 +217,7 @@ namespace XYO::Pixel32::Process {
 		uint32_t x, y, cx;
 		int crx, cgx, cbx;
 		int palleteIndex;
-		BitmapRBGA palleteColor;
+		BitmapRGBA palleteColor;
 		for (palleteIndex = 0; palleteIndex < 256; ++palleteIndex) {
 			palleteColor.rgbBlue = 0x00;
 			palleteColor.rgbGreen = 0x00;
@@ -240,7 +240,7 @@ namespace XYO::Pixel32::Process {
 
 		lx = inImage->width;
 		ly = inImage->height;
-		BitmapRBGA palleteColor;
+		BitmapRGBA palleteColor;
 
 		TPointer<Bitmap> outBitmap1;
 
@@ -281,13 +281,13 @@ namespace XYO::Pixel32::Process {
 
 		TPointer<Bitmap> outBitmap24 = Bitmap::newImage24Bits(lx, ly);
 		uint32_t x, y, cx;
-		BitmapRBG color;
+		BitmapRGB color;
 		for (y = 0; y < ly; ++y) {
 			for (x = 0; x < lx; ++x) {
 				cx = inImage->pixel[ly - y - 1][x];
-				color.rgbtRed = XYO_PIXEL32_R(cx);
-				color.rgbtGreen = XYO_PIXEL32_G(cx);
-				color.rgbtBlue = XYO_PIXEL32_B(cx);
+				color.rgbRed = XYO_PIXEL32_R(cx);
+				color.rgbGreen = XYO_PIXEL32_G(cx);
+				color.rgbBlue = XYO_PIXEL32_B(cx);
 				outBitmap24->setPixel24(x, y, color);
 			};
 		};
@@ -302,7 +302,7 @@ namespace XYO::Pixel32::Process {
 
 		TPointer<Bitmap> outBitmap32 = Bitmap::newImage32Bits(lx, ly);
 		uint32_t x, y, cx;
-		BitmapRBGA color;
+		BitmapRGBA color;
 		for (y = 0; y < ly; ++y) {
 			for (x = 0; x < lx; ++x) {
 				cx = inImage->pixel[ly - y - 1][x];
@@ -316,4 +316,23 @@ namespace XYO::Pixel32::Process {
 		return outBitmap32;
 	};
 
+	TPointer<Image> imageFromBitmap(Bitmap *bmp) {
+		TPointer<Image> retV = create(bmp->getWidth(), bmp->getHeight());
+		size_t x, y, imgY, imgX;
+		BitmapRGBA rgba;
+		imgY = bmp->getHeight();
+		for (y = 0; y < bmp->getHeight(); ++y) {
+			imgY--;
+			imgX = 0;
+			for (x = 0; x < bmp->getWidth(); ++x) {
+				bmp->getPixel32X(x, y, rgba);
+				((uint8_t *)(retV->pixel[imgY]))[imgX + 0] = rgba.rgbRed;
+				((uint8_t *)(retV->pixel[imgY]))[imgX + 1] = rgba.rgbGreen;
+				((uint8_t *)(retV->pixel[imgY]))[imgX + 2] = rgba.rgbBlue;
+				((uint8_t *)(retV->pixel[imgY]))[imgX + 3] = rgba.rgbAlpha;
+				imgX += 4;
+			};
+		};
+		return retV;
+	};
 };
