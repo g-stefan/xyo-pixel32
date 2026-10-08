@@ -14,16 +14,18 @@ namespace XYO::Pixel32::Process {
 		if (width <= 0 || height <= 0) {
 			return nullptr;
 		};
+		// width * height * sizeof(Pixel) must not overflow
+		if ((size_t)width > (SIZE_MAX / sizeof(Pixel)) / (size_t)height) {
+			return nullptr;
+		};
 		TPointer<Image> retV;
 		retV.newMemory();
 		retV->width = width;
 		retV->height = height;
-		uint32_t scan;
-		retV->pixelMap = new Pixel[height * width];
-		memset(retV->pixelMap, 0, sizeof(Pixel) * height * width);
-		retV->pixel = new Pixel *[height];
-		for (scan = 0; scan < height; ++scan) {
-			retV->pixel[scan] = &retV->pixelMap[scan * width];
+		retV->pixelMap = new Pixel[(size_t)width * (size_t)height]();
+		retV->pixel = new Pixel *[(size_t)height];
+		for (size_t scan = 0; scan < (size_t)height; ++scan) {
+			retV->pixel[scan] = &retV->pixelMap[scan * (size_t)width];
 		};
 		return retV;
 	};

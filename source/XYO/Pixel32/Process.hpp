@@ -62,6 +62,17 @@ namespace XYO::Pixel32::Process {
 		return x;
 	};
 
+	// Round and clamp to 0 .. 255, NaN gives 0
+	inline int pixelRound(double x) {
+		if (!(x > 0.0)) {
+			return 0;
+		};
+		if (x >= 255.0) {
+			return 255;
+		};
+		return (int)(x + 0.5);
+	};
+
 	inline Pixel alphaBlending(Pixel x1, Pixel x2) {
 		long int a, r, g, b;
 		a = XYO_PIXEL32_A(x1) + (XYO_PIXEL32_A(x2) * (255 - XYO_PIXEL32_A(x1))) / 255;
@@ -73,6 +84,61 @@ namespace XYO::Pixel32::Process {
 		b = (XYO_PIXEL32_B(x1) * XYO_PIXEL32_A(x1) + ((XYO_PIXEL32_B(x2) * XYO_PIXEL32_A(x2)) * (255 - XYO_PIXEL32_A(x1))) / 255) / a;
 
 		return XYO_PIXEL32_PIXEL(r, g, b, a);
+	};
+
+	// Clip the span [start, start + length) to [0, limit), false if nothing is left
+	inline bool clipSpan(long int &start, long int &length, long int limit) {
+		if (length <= 0) {
+			return false;
+		};
+		int64_t begin = start;
+		int64_t end = (int64_t)start + (int64_t)length;
+		if (begin < 0) {
+			begin = 0;
+		};
+		if (end > limit) {
+			end = limit;
+		};
+		if (end <= begin) {
+			return false;
+		};
+		start = (long int)begin;
+		length = (long int)(end - begin);
+		return true;
+	};
+
+	// Clip a source span and a destination span of the same length
+	// to [0, sourceLimit) and [0, destinationLimit), false if nothing is left
+	inline bool clipSpan2(long int &destination, long int &source, long int &length, long int destinationLimit, long int sourceLimit) {
+		if (length <= 0) {
+			return false;
+		};
+		int64_t d = destination;
+		int64_t s = source;
+		int64_t l = length;
+		if (s < 0) {
+			d -= s;
+			l += s;
+			s = 0;
+		};
+		if (d < 0) {
+			s -= d;
+			l += d;
+			d = 0;
+		};
+		if (l > (int64_t)sourceLimit - s) {
+			l = (int64_t)sourceLimit - s;
+		};
+		if (l > (int64_t)destinationLimit - d) {
+			l = (int64_t)destinationLimit - d;
+		};
+		if (l <= 0) {
+			return false;
+		};
+		destination = (long int)d;
+		source = (long int)s;
+		length = (long int)l;
+		return true;
 	};
 
 	//

@@ -10,20 +10,17 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	// Fully transparent pixels get the background color, still transparent
 	void backgroundAlpha(Image *inOutImage, Pixel background) {
-		long int lx, ly;
-
-		lx = inOutImage->width;
-		ly = inOutImage->height;
 		long int x, y;
-		Pixel cx;
-		int crx, cgx, cbx, cax;
+		Pixel *row;
+		Pixel transparentBackground = background & 0x00FFFFFF;
 
-		for (y = 0; y < ly; ++y) {
-			for (x = 0; x < lx; ++x) {
-				cx = inOutImage->pixel[y][x];
-				if (XYO_PIXEL32_A(cx) == 0x00) {
-					inOutImage->pixel[y][x] = XYO_PIXEL32_CHANGE_A(background, 0x00);
+		for (y = 0; y < inOutImage->height; ++y) {
+			row = inOutImage->pixel[y];
+			for (x = 0; x < inOutImage->width; ++x) {
+				if (XYO_PIXEL32_A(row[x]) == 0x00) {
+					row[x] = transparentBackground;
 				};
 			};
 		};

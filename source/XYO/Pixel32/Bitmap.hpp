@@ -15,9 +15,7 @@ namespace XYO::Pixel32 {
 
 #define XYO_PIXEL32_BITMAP_FILE_ID 0x4D42
 
-#ifdef XYO_PLATFORM_COMPILER_MSVC
-#	include "pshpack1.h"
-#endif
+#pragma pack(push, 1)
 
 	struct BitmapFileHeader {
 			uint16_t bfType;
@@ -118,9 +116,14 @@ namespace XYO::Pixel32 {
 			};
 	};
 
-#ifdef XYO_PLATFORM_COMPILER_MSVC
-#	include "poppack.h"
-#endif
+#pragma pack(pop)
+
+	static_assert(sizeof(BitmapFileHeader) == 14, "BitmapFileHeader layout");
+	static_assert(sizeof(BitmapInfoHeader) == 40, "BitmapInfoHeader layout");
+	static_assert(sizeof(BitmapInfoHeaderV4) == 108, "BitmapInfoHeaderV4 layout");
+	static_assert(sizeof(BitmapImage) == 54, "BitmapImage layout");
+	static_assert(sizeof(BitmapRGBA) == 4, "BitmapRGBA layout");
+	static_assert(sizeof(BitmapRGB) == 3, "BitmapRGB layout");
 
 	class Bitmap : public virtual Object {
 			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(Bitmap);
@@ -138,8 +141,8 @@ namespace XYO::Pixel32 {
 			XYO_PIXEL32_EXPORT static TPointer<Bitmap> newImage4Bits(uint32_t lx, uint32_t ly);
 			XYO_PIXEL32_EXPORT static TPointer<Bitmap> newImage1Bit(uint32_t lx, uint32_t ly);
 			XYO_PIXEL32_EXPORT static TPointer<Bitmap> newImageOwner(BitmapImage *image_);
-			XYO_PIXEL32_EXPORT static TPointer<Bitmap> load(char *name);
-			XYO_PIXEL32_EXPORT bool save(char *name);
+			XYO_PIXEL32_EXPORT static TPointer<Bitmap> load(const char *name);
+			XYO_PIXEL32_EXPORT bool save(const char *name);
 
 			inline BitmapImage *getBitmapImage() {
 				return image;

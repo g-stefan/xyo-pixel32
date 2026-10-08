@@ -10,6 +10,65 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	static uint32_t iconPaletteEntries(uint32_t bits) {
+		if (bits == 1) {
+			return 2;
+		};
+		if (bits == 4) {
+			return 16;
+		};
+		if (bits == 8) {
+			return 256;
+		};
+		return 0;
+	};
+
+	static uint8_t *iconPalette(BitmapImage *image) {
+		return ((uint8_t *)image) + sizeof(BitmapFileHeader) + image->ih.biSize;
+	};
+
+	static uint8_t *iconPixels(BitmapImage *image) {
+		return ((uint8_t *)image) + image->fh.bfOffBits;
+	};
+
+	struct IconEntry {
+			BitmapImage *image;
+			BitmapImage *mask;
+			uint32_t bits;
+			uint32_t paletteSize;
+			uint32_t pixelSize;
+			uint32_t maskSize;
+			uint32_t size;
+	};
+
+	static bool iconEntry(IconItem *item, IconEntry &entry) {
+		if (!item || !item->bmp || !item->mask) {
+			return false;
+		};
+		entry.image = item->bmp->getBitmapImage();
+		entry.mask = item->mask->getBitmapImage();
+		if (!entry.image || !entry.mask) {
+			return false;
+		};
+		uint32_t width = entry.image->ih.biWidth;
+		uint32_t height = entry.image->ih.biHeight;
+		if ((width == 0) || (height == 0) || (width > 256) || (height > 256)) {
+			return false;
+		};
+		if ((entry.mask->ih.biWidth != width) || (entry.mask->ih.biHeight != height) || (item->mask->getPixelWidth() != 1)) {
+			return false;
+		};
+		entry.bits = item->bmp->getPixelWidth();
+		if ((entry.bits != 1) && (entry.bits != 4) && (entry.bits != 8) && (entry.bits != 24) && (entry.bits != 32)) {
+			return false;
+		};
+		entry.paletteSize = iconPaletteEntries(entry.bits) * sizeof(BitmapRGBA);
+		entry.pixelSize = item->bmp->getScanLine() * height;
+		entry.maskSize = item->mask->getScanLine() * height;
+		entry.size = sizeof(BitmapInfoHeader) + entry.paletteSize + entry.pixelSize + entry.maskSize;
+		return true;
+	};
+
 	bool generateIcon(TDoubleEndedQueue<TPointer<IconItem>> &itemList, const char *fileName) {
 		uint16_t iconReserved;
 		uint16_t iconType;
@@ -23,107 +82,87 @@ namespace XYO::Pixel32::Process {
 		uint8_t bmpReserved;
 		uint16_t bmpPlanes;
 		uint16_t bmpBitCount;
-		uint32_t bmpSizeInBytes;
-
-		uint32_t bmpBitsPerPixel;
-		uint32_t bmpScanLineWidth;
 
 		BitmapInfoHeader bmpIh;
-		uint32_t bmpPalSize;
+		IconEntry entry;
 
 		TDoubleEndedQueue<TPointer<IconItem>>::Node *item;
-		FILE *out;
+		File out;
+		bool isOk;
 
 		iconReserved = 0x0000;
 		iconType = 0x0001;
 		iconCount = 0;
 		for (item = itemList.tail; item != NULL; item = item->back) {
+			if (!iconEntry(item->value, entry)) {
+				return false;
+			};
+			if (iconCount == 0xFFFF) {
+				return false;
+			};
 			++iconCount;
 		};
-		out = fopen(fileName, "wb");
-		if (out) {
-
-			fwrite(&iconReserved, 1, sizeof(iconReserved), out);
-			fwrite(&iconType, 1, sizeof(iconType), out);
-			fwrite(&iconCount, 1, sizeof(iconCount), out);
-
-			iconFileOffset = 6 + iconCount * 16;
-			for (item = itemList.tail; item != NULL; item = item->back) {
-
-				bmpWidth = (item->value->bmp->getBitmapImage())->ih.biWidth;
-				bmpHeight = (item->value->bmp->getBitmapImage())->ih.biHeight;
-				bmpColorCount = 0;
-				bmpReserved = 0;
-				bmpPlanes = (item->value->bmp->getBitmapImage())->ih.biPlanes;
-				bmpBitCount = (item->value->bmp->getBitmapImage())->ih.biBitCount;
-				bmpSizeInBytes = sizeof(BitmapInfoHeader);
-				// XOR Mask
-				bmpBitsPerPixel = bmpPlanes * bmpBitCount;
-				bmpScanLineWidth = bmpBitsPerPixel * (item->value->bmp->getBitmapImage())->ih.biWidth;
-				if (bmpScanLineWidth % 32) {
-					bmpScanLineWidth += 32 - bmpScanLineWidth % 32;
-				};
-				bmpScanLineWidth /= 8;
-				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBitmapImage())->ih.biHeight;
-				bmpColorCount = 0;
-				if (bmpBitsPerPixel == 1) {
-					bmpSizeInBytes += 2 * sizeof(BitmapRGBA);
-					bmpColorCount = 2;
-				};
-				if (bmpBitsPerPixel == 4) {
-					bmpSizeInBytes += 16 * sizeof(BitmapRGBA);
-					bmpColorCount = 16;
-				};
-				if (bmpBitsPerPixel == 8) {
-					bmpSizeInBytes += 256 * sizeof(BitmapRGBA);
-					bmpColorCount = 0;
-				};
-				// AND Mask
-				bmpScanLineWidth = (item->value->bmp->getBitmapImage())->ih.biWidth;
-				if (bmpScanLineWidth % 32) {
-					bmpScanLineWidth += 32 - bmpScanLineWidth % 32;
-				};
-				bmpScanLineWidth /= 8;
-				bmpSizeInBytes += bmpScanLineWidth * (item->value->bmp->getBitmapImage())->ih.biHeight;
-
-				fwrite(&bmpWidth, 1, sizeof(bmpWidth), out);
-				fwrite(&bmpHeight, 1, sizeof(bmpHeight), out);
-				fwrite(&bmpColorCount, 1, sizeof(bmpColorCount), out);
-				fwrite(&bmpReserved, 1, sizeof(bmpReserved), out);
-				fwrite(&bmpPlanes, 1, sizeof(bmpPlanes), out);
-				fwrite(&bmpBitCount, 1, sizeof(bmpBitCount), out);
-				fwrite(&bmpSizeInBytes, 1, sizeof(bmpSizeInBytes), out);
-				fwrite(&iconFileOffset, 1, sizeof(iconFileOffset), out);
-
-				iconFileOffset += bmpSizeInBytes;
-			};
-
-			for (item = itemList.tail; item != NULL; item = item->back) {
-				memcpy(&bmpIh, &(item->value->bmp->getBitmapImage())->ih, sizeof(BitmapInfoHeader));
-				bmpIh.biHeight *= 2;
-				bmpIh.biClrUsed = 0;
-				bmpIh.biSizeImage = 0;
-				bmpIh.biCompression = 0;
-				bmpPalSize = 0;
-				bmpBitsPerPixel = bmpIh.biPlanes * bmpIh.biBitCount;
-				if (bmpBitsPerPixel == 1) {
-					bmpPalSize = 2;
-				};
-				if (bmpBitsPerPixel == 4) {
-					bmpPalSize = 16;
-				};
-				if (bmpBitsPerPixel == 8) {
-					bmpPalSize = 256;
-				};
-				fwrite(&bmpIh, 1, sizeof(BitmapInfoHeader), out);
-				fwrite(((uint8_t *)(item->value->bmp->getBitmapImage())) + sizeof(BitmapImage), 1, item->value->bmp->getScanLine() * bmpIh.biHeight / 2 + bmpPalSize * sizeof(BitmapRGBA), out);
-				fwrite(((uint8_t *)(item->value->mask->getBitmapImage())) + sizeof(BitmapImage) + sizeof(BitmapRGBA) * 2, 1, item->value->mask->getScanLine() * bmpIh.biHeight / 2, out);
-			};
-
-			fclose(out);
-			return true;
+		if (iconCount == 0) {
+			return false;
 		};
-		return false;
+
+		if (!out.openWrite(fileName)) {
+			return false;
+		};
+
+		isOk = true;
+		isOk = isOk && (out.write(&iconReserved, sizeof(iconReserved)) == sizeof(iconReserved));
+		isOk = isOk && (out.write(&iconType, sizeof(iconType)) == sizeof(iconType));
+		isOk = isOk && (out.write(&iconCount, sizeof(iconCount)) == sizeof(iconCount));
+
+		iconFileOffset = 6 + iconCount * 16;
+		for (item = itemList.tail; (item != NULL) && isOk; item = item->back) {
+			iconEntry(item->value, entry);
+
+			// 256 is stored as 0
+			bmpWidth = (uint8_t)(entry.image->ih.biWidth & 0xFF);
+			bmpHeight = (uint8_t)(entry.image->ih.biHeight & 0xFF);
+			bmpColorCount = (entry.bits < 8) ? (uint8_t)iconPaletteEntries(entry.bits) : 0;
+			bmpReserved = 0;
+			bmpPlanes = 1;
+			bmpBitCount = (uint16_t)entry.bits;
+
+			isOk = isOk && (out.write(&bmpWidth, sizeof(bmpWidth)) == sizeof(bmpWidth));
+			isOk = isOk && (out.write(&bmpHeight, sizeof(bmpHeight)) == sizeof(bmpHeight));
+			isOk = isOk && (out.write(&bmpColorCount, sizeof(bmpColorCount)) == sizeof(bmpColorCount));
+			isOk = isOk && (out.write(&bmpReserved, sizeof(bmpReserved)) == sizeof(bmpReserved));
+			isOk = isOk && (out.write(&bmpPlanes, sizeof(bmpPlanes)) == sizeof(bmpPlanes));
+			isOk = isOk && (out.write(&bmpBitCount, sizeof(bmpBitCount)) == sizeof(bmpBitCount));
+			isOk = isOk && (out.write(&entry.size, sizeof(entry.size)) == sizeof(entry.size));
+			isOk = isOk && (out.write(&iconFileOffset, sizeof(iconFileOffset)) == sizeof(iconFileOffset));
+
+			iconFileOffset += entry.size;
+		};
+
+		for (item = itemList.tail; (item != NULL) && isOk; item = item->back) {
+			iconEntry(item->value, entry);
+
+			// Icon images always use BITMAPINFOHEADER, the height covers image and mask
+			memcpy(&bmpIh, &entry.image->ih, sizeof(BitmapInfoHeader));
+			bmpIh.biSize = sizeof(BitmapInfoHeader);
+			bmpIh.biHeight *= 2;
+			bmpIh.biPlanes = 1;
+			bmpIh.biBitCount = (uint16_t)entry.bits;
+			bmpIh.biCompression = BitmapCompression::RGB;
+			bmpIh.biSizeImage = entry.pixelSize + entry.maskSize;
+			bmpIh.biClrUsed = 0;
+			bmpIh.biClrImportant = 0;
+
+			isOk = isOk && (out.write(&bmpIh, sizeof(BitmapInfoHeader)) == sizeof(BitmapInfoHeader));
+			if (entry.paletteSize) {
+				isOk = isOk && (out.write(iconPalette(entry.image), entry.paletteSize) == entry.paletteSize);
+			};
+			isOk = isOk && (out.write(iconPixels(entry.image), entry.pixelSize) == entry.pixelSize);
+			isOk = isOk && (out.write(iconPixels(entry.mask), entry.maskSize) == entry.maskSize);
+		};
+
+		out.close();
+		return isOk;
 	};
 
 };

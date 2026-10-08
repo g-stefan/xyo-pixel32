@@ -10,28 +10,49 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	// Border of dx, dy around the image, filled as if the image is tiled:
+	// result pixel (x, y) is the input pixel ((x - dx) mod width, (y - dy) mod height)
 	TPointer<Image> wrapBox(Image *imgThis, long int dx, long int dy) {
-		uint32_t lx = imgThis->width;
-		uint32_t ly = imgThis->height;
+		long int lx = imgThis->width;
+		long int ly = imgThis->height;
+
+		if (dx < 0) {
+			dx = 0;
+		};
+		if (dy < 0) {
+			dy = 0;
+		};
+		if ((dx > (0x7FFFFFFF - lx) / 2) || (dy > (0x7FFFFFFF - ly) / 2)) {
+			return nullptr;
+		};
 
 		TPointer<Image> retV;
 
 		retV = create(lx + 2 * dx, ly + 2 * dy);
 		if (retV) {
-			// center
-			copy(retV, imgThis, dx, dy, 0, 0, lx, ly);
-			// top
-			copy(retV, imgThis, 0, 0, lx - dx, ly - dy, dx, dy);
-			copy(retV, imgThis, dx, 0, 0, ly - dy, lx, dy);
-			copy(retV, imgThis, lx + dx, 0, 0, ly - dy, dx, dy);
-			// bottom
-			copy(retV, imgThis, 0, ly + dy, lx - dx, 0, dx, dy);
-			copy(retV, imgThis, dx, ly + dy, 0, 0, lx, dy);
-			copy(retV, imgThis, lx + dx, ly + dy, 0, 0, dx, dy);
-			// right
-			copy(retV, imgThis, lx + dx, dy, 0, 0, dx, ly);
-			// left
-			copy(retV, imgThis, 0, dy, lx - dx, 0, dx, ly);
+			long int x;
+			long int y;
+			long int mx;
+			long int my;
+			long int startX = (lx - (dx % lx)) % lx;
+			Pixel *out;
+			Pixel *in;
+
+			my = (ly - (dy % ly)) % ly;
+			for (y = 0; y < retV->height; ++y) {
+				out = retV->pixel[y];
+				in = imgThis->pixel[my];
+				mx = startX;
+				for (x = 0; x < retV->width; ++x) {
+					out[x] = in[mx];
+					if (++mx == lx) {
+						mx = 0;
+					};
+				};
+				if (++my == ly) {
+					my = 0;
+				};
+			};
 		};
 		return retV;
 	};

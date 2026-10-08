@@ -11,15 +11,10 @@ namespace XYO::Pixel32::Process {
 	using namespace XYO;
 
 	void clear(Image *imgThis, Pixel pixel) {
-		long int y;
-		Pixel *x;
-		Pixel *xe;
-		for (y = 0; y < imgThis->height; ++y) {
-			x = imgThis->pixel[y];
-			xe = x + imgThis->width;
-			while (x < xe) {
-				*x++ = pixel;
-			};
+		Pixel *x = imgThis->pixelMap;
+		Pixel *xe = x + (size_t)imgThis->width * (size_t)imgThis->height;
+		while (x < xe) {
+			*x++ = pixel;
 		};
 	};
 

@@ -11,36 +11,21 @@ namespace XYO::Pixel32::Process {
 	using namespace XYO;
 
 	void drawFilledRectangle(Image *imgThis, long int sx, long int sy, long int lx, long int ly, Pixel pixel) {
+		if (!clipSpan(sx, lx, imgThis->width)) {
+			return;
+		};
+		if (!clipSpan(sy, ly, imgThis->height)) {
+			return;
+		};
+
 		long int x;
 		long int y;
+		Pixel *row;
 
-		if (sx < 0) {
-			sx = 0;
-		};
-		if (sy < 0) {
-			sy = 0;
-		};
-
-		if (sx + lx >= imgThis->width) {
-			lx = imgThis->width - sx;
-		};
-		if (sy + ly >= imgThis->height) {
-			ly = imgThis->height - sy;
-		};
-
-		if (lx < 0) {
-			lx = 0;
-		};
-		if (ly < 0) {
-			ly = 0;
-		};
-
-		lx += sx;
-		ly += sy;
-
-		for (y = sy; y < ly; ++y) {
-			for (x = sx; x < lx; ++x) {
-				imgThis->pixel[y][x] = alphaBlending(pixel, imgThis->pixel[y][x]);
+		for (y = sy; y < sy + ly; ++y) {
+			row = imgThis->pixel[y];
+			for (x = sx; x < sx + lx; ++x) {
+				row[x] = alphaBlending(pixel, row[x]);
 			};
 		};
 	};

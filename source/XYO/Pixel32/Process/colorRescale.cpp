@@ -10,6 +10,14 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	static inline long int rescale(long int value, long int min, long int max) {
+		if (max > min) {
+			return ((value - min) * 0xFF) / (max - min);
+		};
+		// Constant channel, nothing to stretch
+		return value;
+	};
+
 	void colorRescale(Image *imgInOut) {
 		long int x;
 		long int y;
@@ -70,35 +78,10 @@ namespace XYO::Pixel32::Process {
 		for (y = 0; y < imgInOut->height; ++y) {
 			for (x = 0; x < imgInOut->width; ++x) {
 				cx = imgInOut->pixel[y][x];
-
-				cxa = XYO_PIXEL32_A(cx);
-				if ((maxa - mina) > 0) {
-					cxa = ((cxa - mina) * 0xFF) / (maxa - mina);
-				} else {
-					cxa = 0xFF;
-				};
-
-				cxr = XYO_PIXEL32_R(cx);
-				if ((maxr - minr) > 0) {
-					cxr = ((cxr - minr) * 0xFF) / (maxr - minr);
-				} else {
-					cxr = 0xFF;
-				};
-
-				cxg = XYO_PIXEL32_G(cx);
-				if ((maxg - ming) > 0) {
-					cxg = ((cxg - ming) * 0xFF) / (maxg - ming);
-				} else {
-					cxg = 0xFF;
-				};
-
-				cxb = XYO_PIXEL32_G(cx);
-				if ((maxb - minb) > 0) {
-					cxb = ((cxb - minb) * 0xFF) / (maxb - minb);
-				} else {
-					cxb = 0xFF;
-				};
-
+				cxa = rescale(XYO_PIXEL32_A(cx), mina, maxa);
+				cxr = rescale(XYO_PIXEL32_R(cx), minr, maxr);
+				cxg = rescale(XYO_PIXEL32_G(cx), ming, maxg);
+				cxb = rescale(XYO_PIXEL32_B(cx), minb, maxb);
 				imgInOut->pixel[y][x] = XYO_PIXEL32_PIXEL(cxr, cxg, cxb, cxa);
 			};
 		};

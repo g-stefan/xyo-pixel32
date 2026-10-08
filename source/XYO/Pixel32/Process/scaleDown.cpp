@@ -10,39 +10,55 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	// Halve the size while the target is at most half as large,
+	// then reach the exact size by interpolating to twice the size and halving
 	TPointer<Image> scaleDown(Image *imgThis, long int nx, long int ny) {
-		uint32_t factorX = imgThis->width / nx;
-		uint32_t factorY = imgThis->height / ny;
+		if ((nx <= 0) || (ny <= 0)) {
+			return nullptr;
+		};
 		TPointer<Image> retV = imgThis;
-
-		if (factorY > 1) {
-			if (factorX > 1) {
-				retV = scaleDownX2(retV);
-				return scaleDown(retV, nx, ny);
+		long int factorX;
+		long int factorY;
+		for (;;) {
+			factorX = retV->width / nx;
+			factorY = retV->height / ny;
+			if (factorY > 1) {
+				if (factorX > 1) {
+					retV = scaleDownX2(retV);
+				} else {
+					retV = scaleDownX2OnY(retV);
+				};
+			} else if (factorX > 1) {
+				retV = scaleDownX2OnX(retV);
+			} else {
+				break;
 			};
-			retV = scaleDownX2OnY(retV);
-			return scaleDown(retV, nx, ny);
+			if (!retV) {
+				return nullptr;
+			};
 		};
-		if (factorX > 1) {
-			retV = scaleDownX2OnX(retV);
-			return scaleDown(retV, nx, ny);
-		};
-		if (imgThis->height == ny) {
-			if (imgThis->width == nx) {
+		if (retV->height == ny) {
+			if (retV->width == nx) {
 				return retV;
 			};
 			retV = scaleUpBicubic(retV, nx * 2, ny);
-			retV = scaleDownX2OnX(retV);
-			return retV;
+			if (!retV) {
+				return nullptr;
+			};
+			return scaleDownX2OnX(retV);
 		};
-		if (imgThis->width == nx) {
+		if (retV->width == nx) {
 			retV = scaleUpBicubic(retV, nx, ny * 2);
-			retV = scaleDownX2OnY(retV);
-			return retV;
+			if (!retV) {
+				return nullptr;
+			};
+			return scaleDownX2OnY(retV);
 		};
 		retV = scaleUpBicubic(retV, nx * 2, ny * 2);
-		retV = scaleDownX2(retV);
-		return retV;
+		if (!retV) {
+			return nullptr;
+		};
+		return scaleDownX2(retV);
 	};
 
 };

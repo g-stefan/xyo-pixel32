@@ -1,5 +1,6 @@
 {
 	"solution": {
+		"namespace" : "xyo",
 		"name" : "xyo-pixel32",
 		"type" : "xyo-cpp",
 		"projects": [
@@ -30,6 +31,15 @@
 			},
 			{
 				"name" : "test.01",
+				"make" : "exe",
+				"category" : "test",
+				"SPDX-License-Identifier": "Unlicense",
+				"dependency" : [
+					"xyo-pixel32"
+				]
+			},
+			{
+				"name" : "test.02",
 				"make" : "exe",
 				"category" : "test",
 				"SPDX-License-Identifier": "Unlicense",

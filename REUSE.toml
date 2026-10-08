@@ -1,0 +1,106 @@
+version = 1
+SPDX-PackageName = "XYO Pixel32"
+SPDX-PackageSupplier = "Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-PackageDownloadLocation = "https://github.com/g-stefan/xyo-pixel32"
+
+[[annotations]]
+path = ".github/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = ".github/CODE_OF_CONDUCT.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2014 Coraline Ada Ehmke <https://where.coraline.codes/>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ".gitignore"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = ".clang-format"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = ".vscode/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = ".claude/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = "fabricare/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = "fabricare.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = "version.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = "README.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "docs/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "output/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "source/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["source/XYO/Pixel32/License/libpng.txt", "source/XYO/Pixel32/License.libpng.Source.cpp"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["1995-2019 The PNG Reference Library Authors.", "2018-2019 Cosmin Truta.", "2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson.", "1996-1997 Andreas Dilger.", "1995-1996 Guy Eric Schalnat, Group 42, Inc."]
+SPDX-License-Identifier = "libpng-2.0"
+
+[[annotations]]
+path = ["source/XYO/Pixel32/License/zlib.txt", "source/XYO/Pixel32/License.zlib.Source.cpp"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "1995-2022 Jean-loup Gailly and Mark Adler"
+SPDX-License-Identifier = "Zlib"
+
+[[annotations]]
+path = "test/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "Unlicense"
+
+[[annotations]]
+path = "temp/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2026 Grigore Stefan <g_stefan@yahoo.com>"
+SPDX-License-Identifier = "MIT"

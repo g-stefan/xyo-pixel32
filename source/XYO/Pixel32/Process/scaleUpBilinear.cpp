@@ -10,98 +10,86 @@ namespace XYO::Pixel32::Process {
 
 	using namespace XYO;
 
+	// Samples outside the image repeat the edge pixels
 	TPointer<Image> scaleUpBilinear(Image *imgThis, long int nx, long int ny) {
 		TPointer<Image> retV;
-		if (nx >= imgThis->width && ny >= imgThis->height) {
-			retV = create(nx, ny);
-			if (retV) {
+		if ((nx < imgThis->width) || (ny < imgThis->height)) {
+			return nullptr;
+		};
+		retV = create(nx, ny);
+		if (!retV) {
+			return nullptr;
+		};
 
-				double inX = (double)(imgThis->width - 1);
-				double inY = (double)(imgThis->height - 1);
-				double outX = (double)(nx - 1);
-				double outY = (double)(ny - 1);
+		long int lx = imgThis->width;
+		long int ly = imgThis->height;
+		double deltaX = (nx > 1) ? (double)(lx - 1) / (double)(nx - 1) : 0.0;
+		double deltaY = (ny > 1) ? (double)(ly - 1) / (double)(ny - 1) : 0.0;
 
-				double deltaX = inX / outX;
-				double deltaY = inY / outY;
+		long int x;
+		long int y;
+		long int kX;
+		long int kY;
+		long int kX1;
+		double mX;
+		double mY;
+		double pX;
+		double pY;
+		Pixel *row0;
+		Pixel *row1;
+		Pixel p00, p01, p10, p11;
+		double a00, a01, a10, a11;
+		double r0, g0, b0, a0;
+		double r1, g1, b1, a1;
+		double r, g, b, a;
 
-				long int x;
-				long int y;
+		for (y = 0; y < ny; ++y) {
+			pY = (double)y * deltaY;
+			kY = (long int)pY;
+			mY = pY - (double)kY;
+			row0 = imgThis->pixel[kY];
+			row1 = imgThis->pixel[(kY + 1 < ly) ? kY + 1 : ly - 1];
+			for (x = 0; x < nx; ++x) {
+				pX = (double)x * deltaX;
+				kX = (long int)pX;
+				mX = pX - (double)kX;
+				kX1 = (kX + 1 < lx) ? kX + 1 : lx - 1;
 
-				long int kX;
-				long int kY;
+				p00 = row0[kX];
+				p01 = row0[kX1];
+				p10 = row1[kX];
+				p11 = row1[kX1];
+				a00 = XYO_PIXEL32_A(p00);
+				a01 = XYO_PIXEL32_A(p01);
+				a10 = XYO_PIXEL32_A(p10);
+				a11 = XYO_PIXEL32_A(p11);
 
-				double mX;
-				double mY;
+				r0 = interpolateLinear(XYO_PIXEL32_R(p00) * a00, XYO_PIXEL32_R(p01) * a01, mX);
+				g0 = interpolateLinear(XYO_PIXEL32_G(p00) * a00, XYO_PIXEL32_G(p01) * a01, mX);
+				b0 = interpolateLinear(XYO_PIXEL32_B(p00) * a00, XYO_PIXEL32_B(p01) * a01, mX);
+				a0 = interpolateLinear(a00, a01, mX);
 
-				double dX;
-				double dY;
+				r1 = interpolateLinear(XYO_PIXEL32_R(p10) * a10, XYO_PIXEL32_R(p11) * a11, mX);
+				g1 = interpolateLinear(XYO_PIXEL32_G(p10) * a10, XYO_PIXEL32_G(p11) * a11, mX);
+				b1 = interpolateLinear(XYO_PIXEL32_B(p10) * a10, XYO_PIXEL32_B(p11) * a11, mX);
+				a1 = interpolateLinear(a10, a11, mX);
 
-				Pixel pixel0X;
-				Pixel pixel1X;
+				r = interpolateLinear(r0, r1, mY);
+				g = interpolateLinear(g0, g1, mY);
+				b = interpolateLinear(b0, b1, mY);
+				a = interpolateLinear(a0, a1, mY);
 
-				double pixelR0;
-				double pixelG0;
-				double pixelB0;
-				double pixelA0;
-
-				double pixelR1;
-				double pixelG1;
-				double pixelB1;
-				double pixelA1;
-
-				double pixelRY;
-				double pixelGY;
-				double pixelBY;
-				double pixelAY;
-
-				double pX;
-				double pY;
-
-				for (y = 0; y < ny; ++y) {
-					for (x = 0; x < nx; ++x) {
-						pX = ((((double)x)) * deltaX);
-						pY = ((((double)y)) * deltaY);
-
-						kX = (long int)pX;
-						kY = (long int)pY;
-
-						mX = (pX - kX);
-						mY = (pY - kY);
-
-						pixel0X = getPixel(imgThis, kX, kY);
-						pixel1X = getPixel(imgThis, kX + 1, kY);
-
-						pixelR0 = interpolateLinear(XYO_PIXEL32_R(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_R(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelG0 = interpolateLinear(XYO_PIXEL32_G(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_G(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelB0 = interpolateLinear(XYO_PIXEL32_B(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_B(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelA0 = interpolateLinear(XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_A(pixel1X), mX);
-
-						pixel0X = getPixel(imgThis, kX, kY + 1);
-						pixel1X = getPixel(imgThis, kX + 1, kY + 1);
-
-						pixelR1 = interpolateLinear(XYO_PIXEL32_R(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_R(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelG1 = interpolateLinear(XYO_PIXEL32_G(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_G(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelB1 = interpolateLinear(XYO_PIXEL32_B(pixel0X) * XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_B(pixel1X) * XYO_PIXEL32_A(pixel1X), mX);
-						pixelA1 = interpolateLinear(XYO_PIXEL32_A(pixel0X), XYO_PIXEL32_A(pixel1X), mX);
-
-						pixelRY = interpolateLinear(pixelR0, pixelR1, mY);
-						pixelGY = interpolateLinear(pixelG0, pixelG1, mY);
-						pixelBY = interpolateLinear(pixelB0, pixelB1, mY);
-						pixelAY = interpolateLinear(pixelA0, pixelA1, mY);
-
-						if (pixelAY > 0) {
-							pixelRY /= pixelAY;
-							pixelGY /= pixelAY;
-							pixelBY /= pixelAY;
-						} else {
-							pixelRY = 0;
-							pixelGY = 0;
-							pixelBY = 0;
-						};
-
-						retV->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelClampX(pixelRY), pixelClampX(pixelGY), pixelClampX(pixelBY), pixelClampX(pixelAY));
-					};
+				if (a > 0) {
+					r /= a;
+					g /= a;
+					b /= a;
+				} else {
+					r = 0;
+					g = 0;
+					b = 0;
 				};
+
+				retV->pixel[y][x] = XYO_PIXEL32_PIXEL(pixelRound(r), pixelRound(g), pixelRound(b), pixelRound(a));
 			};
 		};
 		return retV;
