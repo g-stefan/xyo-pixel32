@@ -1,6 +1,5 @@
 {
 	"solution": {
-		"namespace" : "xyo",
 		"name" : "xyo-pixel32",
 		"type" : "xyo-cpp",
 		"projects": [
